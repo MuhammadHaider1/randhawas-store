@@ -112,12 +112,8 @@ class ProductImage(models.Model):
     @property
     def image_url(self):
         name = self.image.name
-        from django.conf import settings
-        if name and not name.startswith('http://') and not name.startswith('https://') and not name.startswith('/'):
-            if hasattr(settings, 'CLOUDINARY_STORAGE'):
-                cloud_name = settings.CLOUDINARY_STORAGE.get('CLOUD_NAME')
-                if cloud_name and 'cloudinary' not in name:
-                    return f'https://res.cloudinary.com/{cloud_name}/image/upload/{name}'
+        if name and not name.startswith('http://') and not name.startswith('https://') and not name.startswith('/') and 'cloudinary' not in str(name):
+            return f'https://res.cloudinary.com/fphi64g1/image/upload/{name}'
         return self.image.url
 
 class Review(models.Model):
