@@ -168,19 +168,11 @@ export default function Checkout() {
                         <>
                           <p className="font-semibold text-green-700">🎉 3% Bank Discount Applied!</p>
                           <p className="text-xs text-green-600 mt-1 mb-2">Pay via bank transfer & get 3% off your total!</p>
-                          <div className="border-b border-amber-200 pb-2 mb-2">
-                            <p className="font-medium text-xs text-amber-700 mb-1">Primary Account (MCB)</p>
+                          <div>
                             <p><span className="font-medium">Bank:</span> {accounts?.bank?.bank_name}</p>
                             <p><span className="font-medium">Account Title:</span> {accounts?.bank?.account_title}</p>
                             <p><span className="font-medium">Account #:</span> {accounts?.bank?.account_number}</p>
                             {accounts?.bank?.iban && <p><span className="font-medium">IBAN:</span> {accounts?.bank?.iban}</p>}
-                          </div>
-                          <div>
-                            <p className="font-medium text-xs text-amber-700 mb-1">Second Account</p>
-                            <p><span className="font-medium">Bank:</span> {accounts?.bank2?.bank_name}</p>
-                            <p><span className="font-medium">Account Title:</span> {accounts?.bank2?.account_title}</p>
-                            <p><span className="font-medium">Account #:</span> {accounts?.bank2?.account_number}</p>
-                            {accounts?.bank2?.iban && <p><span className="font-medium">IBAN:</span> {accounts?.bank2?.iban}</p>}
                           </div>
                         </>
                       )}

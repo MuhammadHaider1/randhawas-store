@@ -184,12 +184,5 @@ PAYMENT_ACCOUNTS = {
         'account_title': config('BANK_ACCOUNT_TITLE', default='Humaira Naz'),
         'account_number': config('BANK_ACCOUNT_NUMBER', default='1615691871009522'),
         'iban': config('BANK_IBAN', default=''),
-    },
-    'bank2': {
-        'name': 'Bank Transfer (Second Account)',
-        'bank_name': config('BANK2_NAME', default='HBL - Habib Bank Limited'),
-        'account_title': config('BANK2_ACCOUNT_TITLE', default='Randahaws'),
-        'account_number': config('BANK2_ACCOUNT_NUMBER', default='1234-5678-9012-3456'),
-        'iban': config('BANK2_IBAN', default='PK36HBLB1234567890123456'),
     }
 }
