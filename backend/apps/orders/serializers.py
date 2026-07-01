@@ -20,7 +20,7 @@ class OrderSerializer(serializers.ModelSerializer):
         fields = [
             'id', 'order_id', 'customer_name', 'customer_email',
             'customer_phone', 'customer_whatsapp', 'shipping_address',
-            'city', 'notes', 'subtotal', 'discount_amount', 'total',
+            'city', 'notes', 'subtotal', 'discount_amount', 'bank_discount', 'total',
             'payment_method', 'payment_status', 'advance_amount', 'payment_receipt',
             'status', 'items', 'created_at'
         ]
@@ -40,7 +40,7 @@ class OrderListSerializer(serializers.ModelSerializer):
         model = Order
         fields = [
             'id', 'order_id', 'customer_name', 'customer_phone',
-            'total', 'payment_method', 'payment_status', 'advance_amount', 'payment_receipt',
+            'total', 'bank_discount', 'payment_method', 'payment_status', 'advance_amount', 'payment_receipt',
             'status', 'is_read', 'item_count', 'created_at'
         ]
 
@@ -50,4 +50,4 @@ class OrderListSerializer(serializers.ModelSerializer):
 class OrderStatusSerializer(serializers.ModelSerializer):
     class Meta:
         model = Order
-        fields = ['status', 'payment_status', 'advance_amount']
+        fields = ['status', 'payment_status', 'advance_amount', 'bank_discount']

@@ -38,6 +38,7 @@ class Order(models.Model):
 
     subtotal = models.DecimalField(max_digits=10, decimal_places=2, default=0)
     discount_amount = models.DecimalField(max_digits=10, decimal_places=2, default=0)
+    bank_discount = models.DecimalField(max_digits=10, decimal_places=2, default=0)
     total = models.DecimalField(max_digits=10, decimal_places=2)
 
     payment_method = models.CharField(max_length=20, choices=PAYMENT_METHOD_CHOICES, default='advance_easypaisa')

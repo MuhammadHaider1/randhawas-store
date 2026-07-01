@@ -165,19 +165,31 @@ SITE_URL = config('SITE_URL', default='http://localhost:5173')
 PAYMENT_ACCOUNTS = {
     'easypaisa': {
         'name': 'EasyPaisa',
-        'number': config('EASYPAISA_NUMBER', default='0325 7163224'),
-        'holder': config('EASYPAISA_HOLDER', default='Muhammad Haider'),
+        'number': config('EASYPAISA_NUMBER', default='03257163224'),
+        'holder': config('EASYPAISA_HOLDER', default='Muhammed Haider'),
     },
     'jazzcash': {
         'name': 'JazzCash',
-        'number': config('JAZZCASH_NUMBER', default='0325 7163224'),
-        'holder': config('JAZZCASH_HOLDER', default='Muhammad Haider'),
+        'number': config('JAZZCASH_NUMBER', default='03257163224'),
+        'holder': config('JAZZCASH_HOLDER', default='Muhammed Haider'),
+    },
+    'nayapay': {
+        'name': 'NayaPay',
+        'number': config('NAYAPAY_NUMBER', default='03257163224'),
+        'holder': config('NAYAPAY_HOLDER', default='Muhammed Haider'),
     },
     'bank': {
         'name': 'Bank Transfer',
-        'bank_name': config('BANK_NAME', default='HBL - Habib Bank Limited'),
-        'account_title': config('BANK_ACCOUNT_TITLE', default='Randahaws'),
-        'account_number': config('BANK_ACCOUNT_NUMBER', default='1234-5678-9012-3456'),
-        'iban': config('BANK_IBAN', default='PK36HBLB1234567890123456'),
+        'bank_name': config('BANK_NAME', default='MCB Bank Limited'),
+        'account_title': config('BANK_ACCOUNT_TITLE', default='Humaira Naz'),
+        'account_number': config('BANK_ACCOUNT_NUMBER', default='1615691871009522'),
+        'iban': config('BANK_IBAN', default=''),
+    },
+    'bank2': {
+        'name': 'Bank Transfer (Second Account)',
+        'bank_name': config('BANK2_NAME', default='HBL - Habib Bank Limited'),
+        'account_title': config('BANK2_ACCOUNT_TITLE', default='Randahaws'),
+        'account_number': config('BANK2_ACCOUNT_NUMBER', default='1234-5678-9012-3456'),
+        'iban': config('BANK2_IBAN', default='PK36HBLB1234567890123456'),
     }
 }

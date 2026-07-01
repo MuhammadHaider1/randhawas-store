@@ -7,7 +7,7 @@ import api from '../utils/api'
 
 const paymentMethods = [
   { value: 'advance_easypaisa', label: '50% Advance via EasyPaisa/JazzCash', desc: 'Send 50% payment & upload receipt' },
-  { value: 'advance_bank', label: '50% Advance via Bank Transfer', desc: 'Bank transfer 50% & upload receipt' },
+  { value: 'advance_bank', label: '50% Advance via Bank Transfer (3% OFF)', desc: 'Bank transfer & get 3% discount – upload receipt' },
 ]
 
 export default function Checkout() {
@@ -31,7 +31,10 @@ export default function Checkout() {
 
   const subtotal = items.reduce((s, i) => s + i.price * i.quantity, 0)
   const discountAmount = subtotal - total
-  const advanceAmount = (total * 0.5).toFixed(2)
+  const bankDiscount = paymentMethod === 'advance_bank' ? total * 0.03 : 0
+  const discountedTotal = total - bankDiscount
+  const advanceAmount = (discountedTotal * 0.5).toFixed(2)
+  const remainingAmount = (discountedTotal * 0.5).toFixed(2)
 
   const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value })
 
@@ -61,6 +64,7 @@ export default function Checkout() {
       fd.append('total', total)
       fd.append('payment_method', paymentMethod)
       fd.append('advance_amount', advanceAmount)
+      if (bankDiscount > 0) fd.append('bank_discount', bankDiscount.toFixed(2))
       if (receiptFile) fd.append('payment_receipt', receiptFile)
       items.forEach((item, idx) => {
         if (item.product) fd.append(`items[${idx}]product`, item.product)
@@ -149,7 +153,7 @@ export default function Checkout() {
                     <p className="font-semibold text-sm text-amber-800">
                       Send <span className="text-lg">PKR {advanceAmount}</span> (50% Advance)
                     </p>
-                    <p className="text-xs text-amber-600">Remaining PKR {advanceAmount} will be collected on delivery</p>
+                    <p className="text-xs text-amber-600">Remaining PKR {remainingAmount} will be collected on delivery</p>
                     <div className="text-sm space-y-1 text-amber-900">
                       {paymentMethod === 'advance_easypaisa' && (
                         <>
@@ -161,10 +165,22 @@ export default function Checkout() {
                       )}
                       {paymentMethod === 'advance_bank' && (
                         <>
-                          <p><span className="font-medium">Bank:</span> {accounts?.bank?.bank_name}</p>
-                          <p><span className="font-medium">Account Title:</span> {accounts?.bank?.account_title}</p>
-                          <p><span className="font-medium">Account #:</span> {accounts?.bank?.account_number}</p>
-                          <p><span className="font-medium">IBAN:</span> {accounts?.bank?.iban}</p>
+                          <p className="font-semibold text-green-700">🎉 3% Bank Discount Applied!</p>
+                          <p className="text-xs text-green-600 mt-1 mb-2">Pay via bank transfer & get 3% off your total!</p>
+                          <div className="border-b border-amber-200 pb-2 mb-2">
+                            <p className="font-medium text-xs text-amber-700 mb-1">Primary Account (MCB)</p>
+                            <p><span className="font-medium">Bank:</span> {accounts?.bank?.bank_name}</p>
+                            <p><span className="font-medium">Account Title:</span> {accounts?.bank?.account_title}</p>
+                            <p><span className="font-medium">Account #:</span> {accounts?.bank?.account_number}</p>
+                            {accounts?.bank?.iban && <p><span className="font-medium">IBAN:</span> {accounts?.bank?.iban}</p>}
+                          </div>
+                          <div>
+                            <p className="font-medium text-xs text-amber-700 mb-1">Second Account</p>
+                            <p><span className="font-medium">Bank:</span> {accounts?.bank2?.bank_name}</p>
+                            <p><span className="font-medium">Account Title:</span> {accounts?.bank2?.account_title}</p>
+                            <p><span className="font-medium">Account #:</span> {accounts?.bank2?.account_number}</p>
+                            {accounts?.bank2?.iban && <p><span className="font-medium">IBAN:</span> {accounts?.bank2?.iban}</p>}
+                          </div>
                         </>
                       )}
                     </div>
@@ -223,14 +239,17 @@ export default function Checkout() {
               {discountAmount > 0 && (
                 <div className="flex justify-between text-red-500"><span>Discount</span><span>-PKR {discountAmount.toFixed(2)}</span></div>
               )}
+              {bankDiscount > 0 && (
+                <div className="flex justify-between text-green-600"><span>Bank Discount (3%)</span><span>-PKR {bankDiscount.toFixed(2)}</span></div>
+              )}
               <div className="flex justify-between"><span className="text-gray-500">Shipping</span><span className="text-emerald-600 font-medium">Free</span></div>
               <div className="flex justify-between text-amber-700"><span>Advance (50%)</span><span className="font-semibold">PKR {advanceAmount}</span></div>
-              <div className="flex justify-between text-gray-500"><span>Remaining on Delivery</span><span>PKR {advanceAmount}</span></div>
+              <div className="flex justify-between text-gray-500"><span>Remaining on Delivery</span><span>PKR {remainingAmount}</span></div>
               <hr />
-              <div className="flex justify-between text-lg font-semibold"><span>Total</span><span>PKR {total.toFixed(2)}</span></div>
+              <div className="flex justify-between text-lg font-semibold"><span>Total</span><span>PKR {discountedTotal.toFixed(2)}</span></div>
             </div>
             <p className="text-xs text-gray-400 text-center pt-2">
-              Send PKR {advanceAmount} (50%) advance & upload receipt. Remaining PKR {advanceAmount} on delivery.
+              Send PKR {advanceAmount} (50%) advance & upload receipt. Remaining PKR {remainingAmount} on delivery. {bankDiscount > 0 && '3% bank discount applied.'}
             </p>
           </div>
         </motion.div>
