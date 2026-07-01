@@ -159,7 +159,7 @@ EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD', default='')
 DEFAULT_FROM_EMAIL = config('DEFAULT_FROM_EMAIL', default='noreply@randahaws.com')
 
 ADMIN_EMAIL = config('ADMIN_EMAIL', default='admin@randahaws.com')
-SITE_NAME = 'Randahaws Heel Shoes'
+SITE_NAME = 'Randahaws — Women\'s Fashion'
 SITE_URL = config('SITE_URL', default='http://localhost:5173')
 
 PAYMENT_ACCOUNTS = {
@@ -176,7 +176,7 @@ PAYMENT_ACCOUNTS = {
     'bank': {
         'name': 'Bank Transfer',
         'bank_name': config('BANK_NAME', default='HBL - Habib Bank Limited'),
-        'account_title': config('BANK_ACCOUNT_TITLE', default='Randahaws Heel Shoes'),
+        'account_title': config('BANK_ACCOUNT_TITLE', default='Randahaws'),
         'account_number': config('BANK_ACCOUNT_NUMBER', default='1234-5678-9012-3456'),
         'iban': config('BANK_IBAN', default='PK36HBLB1234567890123456'),
     }

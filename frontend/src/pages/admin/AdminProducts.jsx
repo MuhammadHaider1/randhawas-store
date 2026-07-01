@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { HiPlus, HiPencil, HiTrash, HiX, HiPhotograph, HiSearch } from 'react-icons/hi'
 import api from '../../utils/api'
 
-const HEEL_TYPES = ['', 'stiletto', 'block', 'wedge', 'kitten', 'platform', 'cone']
+const HEEL_TYPES = ['', 'stiletto', 'block', 'wedge', 'kitten', 'platform', 'cone', 'flat', 'sandal', 'boot']
 const GENDER_CHOICES = ['women', 'men', 'unisex']
 
 const emptyProduct = {
@@ -255,14 +255,14 @@ export default function AdminProducts() {
                     </select>
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">Heel Type</label>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">Type (e.g. heel/stiletto)</label>
                     <select value={form.heel_type} onChange={(e) => setForm({ ...form, heel_type: e.target.value })}
                       className="w-full border rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-primary-500 outline-none">
-                      {HEEL_TYPES.map((h) => <option key={h} value={h}>{h || 'None'}</option>)}
+                      {HEEL_TYPES.map((h) => <option key={h} value={h}>{h || '—'}</option>)}
                     </select>
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">Heel Height</label>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">Height / Size info</label>
                     <input value={form.heel_height} onChange={(e) => setForm({ ...form, heel_height: e.target.value })}
                       className="w-full border rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-primary-500 outline-none" />
                   </div>

@@ -12,14 +12,14 @@ export default function Footer() {
               <span className="text-primary-400">Randa</span>haws
             </h3>
             <p className="text-sm leading-relaxed">
-              Premium heels crafted for the modern woman who demands elegance, comfort, and sophistication in every step.
+              Premium women's fashion — from elegant heels and handbags to trendy suits, jewelry, and makeup. Designed for the confident, modern woman.
             </p>
           </motion.div>
 
           <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.1 }}>
             <h4 className="font-serif text-lg text-white mb-4">Quick Links</h4>
             <ul className="space-y-2 text-sm">
-              <li><Link to="/shop" className="hover:text-white transition-colors">All Heels</Link></li>
+              <li><Link to="/shop" className="hover:text-white transition-colors">All Products</Link></li>
               <li><Link to="/shop?is_featured=true" className="hover:text-white transition-colors">Featured</Link></li>
               <li><Link to="/order-tracking" className="hover:text-white transition-colors">Track Order</Link></li>
             </ul>
@@ -36,8 +36,8 @@ export default function Footer() {
       </div>
       <div className="border-t border-gray-700 py-6">
         <div className="max-w-7xl mx-auto px-4 flex flex-col md:flex-row items-center justify-between gap-4 text-sm text-gray-500">
-          <p>&copy; {new Date().getFullYear()} Randahaws Heel Shoes. All rights reserved.</p>
-          <p className="flex items-center gap-1">Made with <HiHeart className="text-primary-500" /> for heel lovers</p>
+          <p>&copy; {new Date().getFullYear()} Randahaws. All rights reserved.</p>
+          <p className="flex items-center gap-1">Made with <HiHeart className="text-primary-500" /> for fashion lovers</p>
         </div>
       </div>
     </footer>

@@ -12,7 +12,7 @@ export default function Cart() {
     return (
       <div className="max-w-7xl mx-auto px-4 py-20 text-center">
         <h1 className="font-serif text-3xl mb-4">Your Cart is Empty</h1>
-        <p className="text-gray-500 mb-8">Add some heels to get started!</p>
+        <p className="text-gray-500 mb-8">Add some products to get started!</p>
         <Link to="/shop" className="btn-primary inline-flex items-center gap-2"><HiArrowLeft /> Shop Now</Link>
       </div>
     )

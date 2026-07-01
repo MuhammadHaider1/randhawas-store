@@ -9,7 +9,7 @@ from .serializers import (
 )
 
 class CategoryListView(generics.ListAPIView):
-    queryset = Category.objects.filter(is_active=True)
+    queryset = Category.objects.filter(is_active=True).order_by('name')
     serializer_class = CategorySerializer
 
 class ProductListView(generics.ListAPIView):
@@ -30,11 +30,11 @@ class ProductListView(generics.ListAPIView):
     ordering = ['-created_at']
 
 class FeaturedProductListView(generics.ListAPIView):
-    queryset = Product.objects.filter(is_active=True, is_featured=True).select_related('category').prefetch_related('images')
+    queryset = Product.objects.filter(is_active=True, is_featured=True).select_related('category').prefetch_related('images').order_by('-created_at')
     serializer_class = ProductListSerializer
 
 class ComingSoonListView(generics.ListAPIView):
-    queryset = Product.objects.filter(is_active=True, is_coming_soon=True).select_related('category').prefetch_related('images')
+    queryset = Product.objects.filter(is_active=True, is_coming_soon=True).select_related('category').prefetch_related('images').order_by('-created_at')
     serializer_class = ProductListSerializer
 
 class ProductDetailView(generics.RetrieveAPIView):

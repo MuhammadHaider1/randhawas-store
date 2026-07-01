@@ -4,7 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { useSelector, useDispatch } from 'react-redux'
 import {
   HiMenu, HiX, HiShoppingBag, HiUser, HiSearch,
-  HiMoon, HiSun, HiLogout, HiCog,
+  HiMoon, HiSun, HiLogout, HiCog, HiChevronDown,
 } from 'react-icons/hi'
 import { logout } from '../../store/authSlice'
 import { useTheme } from '../../context/ThemeContext'
@@ -18,9 +18,12 @@ export default function Navbar({ onCartOpen }) {
   const [mobileOpen, setMobileOpen] = useState(false)
   const [searchOpen, setSearchOpen] = useState(false)
   const [dropdownOpen, setDropdownOpen] = useState(false)
+  const [catDropdownOpen, setCatDropdownOpen] = useState(false)
   const dropdownRef = useRef(null)
+  const catDropdownRef = useRef(null)
   const { itemCount } = useSelector((s) => s.cart)
   const { user } = useSelector((s) => s.auth)
+  const { categories } = useSelector((s) => s.products)
   const dispatch = useDispatch()
   const location = useLocation()
   const navigate = useNavigate()
@@ -29,6 +32,7 @@ export default function Navbar({ onCartOpen }) {
   useEffect(() => {
     const handleClick = (e) => {
       if (dropdownRef.current && !dropdownRef.current.contains(e.target)) setDropdownOpen(false)
+      if (catDropdownRef.current && !catDropdownRef.current.contains(e.target)) setCatDropdownOpen(false)
     }
     document.addEventListener('mousedown', handleClick)
     return () => document.removeEventListener('mousedown', handleClick)
@@ -48,7 +52,7 @@ export default function Navbar({ onCartOpen }) {
             <span className="text-primary-600">Randa</span>haws
           </Link>
 
-          <div className="hidden md:flex items-center gap-8">
+          <div className="hidden md:flex items-center gap-6">
             {links.map((l) => (
               <Link key={l.to} to={l.to}
                 className={`text-sm uppercase tracking-widest font-medium transition-colors hover:text-primary-600 ${
@@ -57,6 +61,33 @@ export default function Navbar({ onCartOpen }) {
                 {l.label}
               </Link>
             ))}
+            <div className="relative" ref={catDropdownRef}>
+              <button onClick={() => setCatDropdownOpen(!catDropdownOpen)}
+                className="flex items-center gap-1 text-sm uppercase tracking-widest font-medium text-luxury-charcoal dark:text-gray-300 hover:text-primary-600 transition-colors">
+                Categories <HiChevronDown size={14} className={`transition-transform ${catDropdownOpen ? 'rotate-180' : ''}`} />
+              </button>
+              <AnimatePresence>
+                {catDropdownOpen && (
+                  <motion.div initial={{ opacity: 0, y: -8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -8 }}
+                    className="absolute left-0 mt-3 w-56 bg-white dark:bg-gray-800 rounded-xl shadow-lg border dark:border-gray-700 py-2 max-h-80 overflow-y-auto">
+                    {categories.map((cat) => (
+                      <Link key={cat.id} to={`/shop?category=${cat.id}`} onClick={() => setCatDropdownOpen(false)}
+                        className="flex items-center gap-3 px-4 py-2.5 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors">
+                        {cat.image && <img src={cat.image} alt="" className="w-8 h-8 rounded-lg object-cover" />}
+                        <div>
+                          <p className="font-medium">{cat.name}</p>
+                          {cat.product_count !== undefined && <p className="text-xs text-gray-400">{cat.product_count} items</p>}
+                        </div>
+                      </Link>
+                    ))}
+                    <div className="border-t dark:border-gray-700 mt-1 pt-1">
+                      <Link to="/shop" onClick={() => setCatDropdownOpen(false)}
+                        className="block px-4 py-2.5 text-sm text-primary-600 font-medium hover:bg-gray-50 dark:hover:bg-gray-700">View All</Link>
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
           </div>
 
           <div className="flex items-center gap-2">
@@ -128,6 +159,11 @@ export default function Navbar({ onCartOpen }) {
                   {l.label}
                 </Link>
               ))}
+              <p className="text-xs uppercase tracking-widest text-gray-400 pt-2">Categories</p>
+              {categories.map((cat) => (
+                <Link key={cat.id} to={`/shop?category=${cat.id}`} onClick={() => setMobileOpen(false)}
+                  className="block text-sm text-luxury-charcoal dark:text-gray-300 pl-2">{cat.name}</Link>
+              ))}
               {user ? (
                 <>
                   <Link to="/profile" onClick={() => setMobileOpen(false)}
@@ -147,7 +183,7 @@ export default function Navbar({ onCartOpen }) {
         {searchOpen && (
           <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }}
             className="border-t bg-white dark:bg-gray-900 dark:border-gray-800 px-4 py-3">
-            <input type="text" placeholder="Search heels..." autoFocus onBlur={() => setSearchOpen(false)}
+            <input type="text" placeholder="Search products..." autoFocus onBlur={() => setSearchOpen(false)}
               className="w-full px-4 py-2 rounded-full bg-gray-100 dark:bg-gray-800 border-0 focus:ring-2 focus:ring-primary-500 outline-none text-sm dark:text-white" />
           </motion.div>
         )}

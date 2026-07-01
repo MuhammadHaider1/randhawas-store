@@ -81,7 +81,7 @@ class OrderCreateView(generics.CreateAPIView):
                 f'to the account shown on our website and upload the receipt.\n'
                 f'Remaining PKR {order.advance_amount} will be collected on delivery.\n\n'
                 f'We will verify your payment within 24 hours.\n\n'
-                f'Randahaws Heel Shoes'
+                f'Randahaws'
             )
 
             send_mail(

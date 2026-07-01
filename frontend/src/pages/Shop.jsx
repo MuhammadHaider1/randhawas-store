@@ -7,13 +7,13 @@ import { fetchProducts } from '../store/productSlice'
 import ProductCard from '../components/product/ProductCard'
 
 const filters = [
-  { key: 'heel_type', label: 'Heel Type', options: ['stiletto', 'block', 'wedge', 'kitten', 'platform'] },
+  { key: 'category', label: 'Category', options: 'dynamic' },
   { key: 'is_featured', label: 'Featured', options: [{ value: 'true', label: 'Featured Only' }] },
 ]
 
 export default function Shop() {
   const dispatch = useDispatch()
-  const { items, loading, total } = useSelector((s) => s.products)
+  const { items, loading, total, categories } = useSelector((s) => s.products)
   const [searchParams, setSearchParams] = useSearchParams()
   const [mobileFilters, setMobileFilters] = useState(false)
   const [priceRange, setPriceRange] = useState([0, 500])
@@ -42,8 +42,8 @@ export default function Shop() {
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
       <div className="flex items-center justify-between mb-8">
         <div>
-          <h1 className="font-serif text-3xl md:text-4xl font-semibold">All Heels</h1>
-          <p className="text-gray-500 text-sm mt-1">{total} styles available</p>
+          <h1 className="font-serif text-3xl md:text-4xl font-semibold">Shop All</h1>
+          <p className="text-gray-500 text-sm mt-1">{total} products available</p>
         </div>
         <button onClick={() => setMobileFilters(true)}
           className="lg:hidden btn-outline !py-2 !px-4 text-sm flex items-center gap-2"><HiAdjustments /> Filters</button>
@@ -60,7 +60,7 @@ export default function Shop() {
               <div key={f.key}>
                 <h4 className="text-sm font-medium mb-3 capitalize">{f.label}</h4>
                 <div className="space-y-2">
-                  {f.options.map((opt) => {
+                  {(f.options === 'dynamic' ? categories.map((c) => ({ value: String(c.id), label: c.name })) : f.options).map((opt) => {
                     const val = typeof opt === 'string' ? opt : opt.value
                     const label = typeof opt === 'string' ? opt : opt.label
                     const isActive = searchParams.get(f.key) === val
@@ -105,7 +105,7 @@ export default function Shop() {
             </div>
           ) : (
             <div className="text-center py-20">
-              <p className="text-gray-400 text-lg">No heels found</p>
+              <p className="text-gray-400 text-lg">No products found</p>
               <button onClick={clearFilters} className="btn-primary mt-4">Clear Filters</button>
             </div>
           )}
@@ -128,7 +128,7 @@ export default function Shop() {
                   <div key={f.key}>
                     <h4 className="text-sm font-medium mb-3 capitalize">{f.label}</h4>
                     <div className="space-y-2">
-                      {f.options.map((opt) => {
+                      {(f.options === 'dynamic' ? categories.map((c) => ({ value: String(c.id), label: c.name })) : f.options).map((opt) => {
                         const val = typeof opt === 'string' ? opt : opt.value
                         const label = typeof opt === 'string' ? opt : opt.label
                         const isActive = searchParams.get(f.key) === val

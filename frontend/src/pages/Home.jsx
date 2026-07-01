@@ -12,9 +12,9 @@ const fadeUp = {
 }
 
 const testimonials = [
-  { name: 'Sarah M.', text: 'Absolutely stunning heels! The quality is unmatched and they fit like a dream.', rating: 5 },
-  { name: 'Jessica K.', text: 'I receive compliments every time I wear my Randahaws heels. Truly premium.', rating: 5 },
-  { name: 'Amanda L.', text: 'The most comfortable luxury heels I have ever owned. Worth every penny!', rating: 5 },
+  { name: 'Sarah M.', text: 'Absolutely stunning collection! The quality is unmatched and everything fits like a dream.', rating: 5 },
+  { name: 'Jessica K.', text: 'I receive compliments every time I wear Randahaws. Truly premium pieces.', rating: 5 },
+  { name: 'Amanda L.', text: 'The most beautiful women\'s fashion I have ever owned. Worth every penny!', rating: 5 },
 ]
 
 export default function Home() {
@@ -27,14 +27,14 @@ export default function Home() {
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-32 md:py-40">
           <div className="max-w-2xl">
             <motion.span variants={fadeUp} initial="hidden" animate="visible"
-              className="text-primary-600 uppercase tracking-[0.2em] text-sm font-medium">Luxury Redefined</motion.span>
+              className="text-primary-600 uppercase tracking-[0.2em] text-sm font-medium">Women's Fashion</motion.span>
             <motion.h1 variants={fadeUp} initial="hidden" animate="visible" custom={1}
               className="font-serif text-5xl md:text-6xl lg:text-7xl text-luxury-charcoal mt-4 leading-tight">
-              Walk in<br /><span className="text-primary-600">Elegance</span>
+              Dress in<br /><span className="text-primary-600">Style</span>
             </motion.h1>
             <motion.p variants={fadeUp} initial="hidden" animate="visible" custom={2}
               className="text-gray-600 text-lg mt-6 max-w-md">
-              Discover our exclusive collection of handcrafted premium heels designed for the confident, modern woman.
+              Discover our exclusive collection — from elegant heels and handbags to trendy suits, jewelry, and makeup. Everything for the confident, modern woman.
             </motion.p>
             <motion.div variants={fadeUp} initial="hidden" animate="visible" custom={3} className="flex gap-4 mt-8">
               <Link to="/shop" className="btn-primary inline-flex items-center gap-2 group">
@@ -54,7 +54,7 @@ export default function Home() {
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} className="text-center mb-12">
               <h2 className="section-title">Shop by Category</h2>
-              <p className="section-subtitle">Find your perfect pair</p>
+              <p className="section-subtitle">Browse our full collection</p>
             </motion.div>
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
               {categories.map((cat, i) => (
@@ -70,8 +70,8 @@ export default function Home() {
       <section className="py-20 bg-luxury-cream">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} className="text-center mb-12">
-            <h2 className="section-title">Featured Heels</h2>
-            <p className="section-subtitle">Our most-loved designs</p>
+            <h2 className="section-title">Featured Products</h2>
+            <p className="section-subtitle">Our most-loved picks</p>
           </motion.div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {featured.slice(0, 8).map((product, i) => (
@@ -113,7 +113,7 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} className="text-center mb-12">
             <h2 className="section-title">What Our Customers Say</h2>
-            <p className="section-subtitle">Real reviews from real women</p>
+            <p className="section-subtitle">Real reviews from real customers</p>
           </motion.div>
           <div className="grid md:grid-cols-3 gap-8">
             {testimonials.map((t, i) => (
