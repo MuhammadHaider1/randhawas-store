@@ -28,8 +28,8 @@ export default function Footer() {
           <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.2 }}>
             <h4 className="font-serif text-lg text-white mb-4">Contact</h4>
             <ul className="space-y-2 text-sm">
-              <li>info@randahaws.com</li>
-              <li>WhatsApp: +20 123 456 789</li>
+              <li>hirarandhawa660@gmail.com</li>
+              <li>+92 341 6275384</li>
             </ul>
           </motion.div>
         </div>
