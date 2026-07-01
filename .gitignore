@@ -1,0 +1,43 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+dist/
+build/
+*.egg
+.eggs/
+*.sqlite3
+db.sqlite3
+
+# Virtualenv
+venv/
+.env
+.env.local
+!.env.example
+
+# Node
+node_modules/
+frontend/dist/
+frontend/.vite/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Django
+backend/media/
+backend/staticfiles/
+backend/static_root/
+
+# Logs
+*.log
+/tmp/
+
+# Coverage
+htmlcov/
+.coverage
+coverage/
