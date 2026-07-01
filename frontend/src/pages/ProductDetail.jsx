@@ -151,22 +151,25 @@ export default function ProductDetail() {
             {/* Category-specific attributes */}
             {product.attributes && Object.keys(product.attributes).length > 0 && (
               <div className="grid grid-cols-2 gap-3 bg-gray-50 rounded-xl p-4">
-                {Object.entries(product.attributes).map(([key, value]) => {
-                  const labels = {
-                    sizes: 'Sizes', heel_type: 'Heel Type', heel_height: 'Heel Height',
-                    material: 'Material', bag_type: 'Bag Type', fabric: 'Fabric',
-                    stitching: 'Stitching', shade: 'Shade', volume: 'Volume',
-                    fragrance_type: 'Type', weight: 'Weight', size: 'Size',
-                  }
-                  const displayVal = Array.isArray(value) ? value.join(', ') : value
-                  if (!displayVal) return null
-                  return (
-                    <div key={key}>
-                      <span className="text-xs text-gray-400 uppercase tracking-wide">{labels[key] || key}</span>
-                      <p className="text-sm font-medium text-gray-800 mt-0.5">{displayVal}</p>
-                    </div>
-                  )
-                })}
+                  {Object.entries(product.attributes).map(([key, value]) => {
+                    const labels = {
+                      sizes: 'Sizes', heel_type: 'Heel Type', heel_height: 'Heel Height',
+                      material: 'Material', bag_type: 'Bag Type', fabric: 'Fabric',
+                      stitching: 'Stitching', shade: 'Shade', volume: 'Volume',
+                      fragrance_type: 'Type', weight: 'Weight', size: 'Size',
+                    }
+                    let displayVal = value
+                    if (displayVal === null || displayVal === undefined) return null
+                    if (Array.isArray(displayVal)) displayVal = displayVal.join(', ')
+                    else if (typeof displayVal === 'object') displayVal = JSON.stringify(displayVal)
+                    if (!displayVal) return null
+                    return (
+                      <div key={key}>
+                        <span className="text-xs text-gray-400 uppercase tracking-wide">{labels[key] || key}</span>
+                        <p className="text-sm font-medium text-gray-800 mt-0.5">{displayVal}</p>
+                      </div>
+                    )
+                  })}
               </div>
             )}
 
