@@ -6,7 +6,7 @@ services:
     plan: free
     region: singapore
     branch: main
-    buildCommand: pip install -r backend/requirements.txt && cd backend && python manage.py collectstatic --noinput
+    buildCommand: cd backend && bash build.sh
     startCommand: cd backend && gunicorn config.wsgi --bind 0.0.0.0:$PORT --workers 2 --timeout 120 --access-logfile -
     envVars:
       - key: DEBUG
@@ -18,50 +18,34 @@ services:
       - key: USE_POSTGRES
         value: "True"
       - key: DB_NAME
-        fromDatabase:
-          name: randahaws-db
-          property: database
+        value: "randahaws"
       - key: DB_USER
-        fromDatabase:
-          name: randahaws-db
-          property: user
+        value: "neondb_owner"
       - key: DB_PASSWORD
-        fromDatabase:
-          name: randahaws-db
-          property: password
+        value: "npg_TCJhsnW9ZHj8"
       - key: DB_HOST
-        fromDatabase:
-          name: randahaws-db
-          property: host
+        value: "ep-shiny-scene-aobrsn57-pooler.c-2.ap-southeast-1.aws.neon.tech"
       - key: DB_PORT
-        fromDatabase:
-          name: randahaws-db
-          property: port
+        value: "5432"
       - key: CORS_ALLOWED_ORIGINS
         sync: false
       - key: CSRF_TRUSTED_ORIGINS
         sync: false
       - key: EMAIL_HOST_USER
-        sync: false
+        value: "hirarandhawa660@gmail.com"
       - key: EMAIL_HOST_PASSWORD
-        sync: false
+        value: "kynf bqrv dvnr hdvd"
       - key: USE_CLOUDINARY
         value: "True"
       - key: CLOUDINARY_CLOUD_NAME
-        sync: false
+        value: "fphi64g1"
       - key: CLOUDINARY_API_KEY
-        sync: false
+        value: "414982962672331"
       - key: CLOUDINARY_API_SECRET
-        sync: false
+        value: "fpw15R38g_WdstHlE3Shulp0F3w"
       - key: EASYPAISA_NUMBER
-        sync: false
+        value: "0325 7163224"
       - key: JAZZCASH_NUMBER
-        sync: false
+        value: "0325 7163224"
       - key: SITE_URL
         sync: false
-
-databases:
-  - name: randahaws-db
-    plan: free
-    region: singapore
-    databaseName: randahaws
