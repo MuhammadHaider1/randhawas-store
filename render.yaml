@@ -22,7 +22,7 @@ services:
       - key: DB_USER
         value: "neondb_owner"
       - key: DB_PASSWORD
-        value: "npg_TCJhsnW9ZHj8"
+        sync: false
       - key: DB_HOST
         value: "ep-shiny-scene-aobrsn57-pooler.c-2.ap-southeast-1.aws.neon.tech"
       - key: DB_PORT
@@ -34,7 +34,7 @@ services:
       - key: EMAIL_HOST_USER
         value: "hirarandhawa660@gmail.com"
       - key: EMAIL_HOST_PASSWORD
-        value: "kynf bqrv dvnr hdvd"
+        sync: false
       - key: USE_CLOUDINARY
         value: "True"
       - key: CLOUDINARY_CLOUD_NAME
@@ -42,7 +42,7 @@ services:
       - key: CLOUDINARY_API_KEY
         value: "414982962672331"
       - key: CLOUDINARY_API_SECRET
-        value: "fpw15R38g_WdstHlE3Shulp0F3w"
+        sync: false
       - key: EASYPAISA_NUMBER
         value: "0325 7163224"
       - key: JAZZCASH_NUMBER
