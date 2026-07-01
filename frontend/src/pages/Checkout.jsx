@@ -70,7 +70,7 @@ export default function Checkout() {
       items.forEach((item, idx) => {
         if (item.product) fd.append(`items[${idx}]product`, item.product)
         fd.append(`items[${idx}]product_name`, item.name)
-        fd.append(`items[${idx}]product_image`, item.image || '')
+        if (item.image) fd.append(`items[${idx}]product_image`, item.image)
         fd.append(`items[${idx}]size`, item.size || '')
         fd.append(`items[${idx}]color`, item.color || '')
         fd.append(`items[${idx}]quantity`, item.quantity)
