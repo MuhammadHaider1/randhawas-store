@@ -4,9 +4,14 @@ from django.db.models import Count
 from .models import Category, Product, ProductImage, Review
 
 class ProductImageSerializer(serializers.ModelSerializer):
+    image = serializers.SerializerMethodField()
+
     class Meta:
         model = ProductImage
         fields = ['id', 'image', 'is_primary', 'alt_text']
+
+    def get_image(self, obj):
+        return obj.image_url
 
 class ReviewSerializer(serializers.ModelSerializer):
     class Meta:
@@ -29,7 +34,7 @@ class ProductListSerializer(serializers.ModelSerializer):
         img = obj.images.filter(is_primary=True).first()
         if not img:
             img = obj.images.first()
-        return img.image.url if img else None
+        return img.image_url if img else None
 
     sold_count = serializers.SerializerMethodField()
 

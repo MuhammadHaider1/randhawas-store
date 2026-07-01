@@ -56,7 +56,7 @@ class AdminProductSerializer(serializers.ModelSerializer):
         img = obj.images.filter(is_primary=True).first()
         if not img:
             img = obj.images.first()
-        return img.image.url if img else None
+        return img.image_url if img else None
 
     def to_representation(self, instance):
         data = super().to_representation(instance)

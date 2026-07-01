@@ -109,6 +109,17 @@ class ProductImage(models.Model):
     def __str__(self):
         return f'{self.product.name} - Image {self.sort_order}'
 
+    @property
+    def image_url(self):
+        name = self.image.name
+        from django.conf import settings
+        if name and not name.startswith('http://') and not name.startswith('https://') and not name.startswith('/'):
+            if hasattr(settings, 'CLOUDINARY_STORAGE'):
+                cloud_name = settings.CLOUDINARY_STORAGE.get('CLOUD_NAME')
+                if cloud_name and 'cloudinary' not in name:
+                    return f'https://res.cloudinary.com/{cloud_name}/image/upload/{name}'
+        return self.image.url
+
 class Review(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='reviews')
     customer_name = models.CharField(max_length=100)
