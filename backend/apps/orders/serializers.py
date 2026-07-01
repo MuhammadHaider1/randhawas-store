@@ -14,7 +14,6 @@ class OrderItemSerializer(serializers.ModelSerializer):
 class OrderSerializer(serializers.ModelSerializer):
     items = OrderItemSerializer(many=True)
     payment_receipt = serializers.ImageField(required=False, allow_null=True)
-    receipt_url = serializers.ReadOnlyField(source='receipt_url')
 
     class Meta:
         model = Order
@@ -22,7 +21,7 @@ class OrderSerializer(serializers.ModelSerializer):
             'id', 'order_id', 'customer_name', 'customer_email',
             'customer_phone', 'customer_whatsapp', 'shipping_address',
             'city', 'notes', 'subtotal', 'discount_amount', 'total',
-            'payment_method', 'payment_status', 'advance_amount', 'payment_receipt', 'receipt_url',
+            'payment_method', 'payment_status', 'advance_amount', 'payment_receipt',
             'status', 'items', 'created_at'
         ]
         read_only_fields = ['order_id', 'payment_status', 'status', 'created_at']
@@ -36,14 +35,13 @@ class OrderSerializer(serializers.ModelSerializer):
 
 class OrderListSerializer(serializers.ModelSerializer):
     item_count = serializers.SerializerMethodField()
-    receipt_url = serializers.ReadOnlyField(source='receipt_url')
 
     class Meta:
         model = Order
         fields = [
             'id', 'order_id', 'customer_name', 'customer_phone',
-            'total', 'payment_method', 'payment_status', 'advance_amount', 'payment_receipt',
-            'status', 'is_read', 'item_count', 'created_at', 'receipt_url'
+            'total', 'payment_method', 'payment_status', 'advance_amount',
+            'status', 'is_read', 'item_count', 'created_at'
         ]
 
     def get_item_count(self, obj):

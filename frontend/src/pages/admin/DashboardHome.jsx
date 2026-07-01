@@ -94,9 +94,9 @@ export default function DashboardHome() {
                       }`}>{order.payment_status}</span>
                     </td>
                     <td className="py-3">
-                      {order.receipt_url ? (
+                      {order.payment_receipt ? (
                         <img
-                          src={order.receipt_url}
+                          src={order.payment_receipt}
                           alt="receipt"
                           className="w-12 h-12 object-cover rounded-lg border cursor-pointer hover:opacity-80"
                           onClick={() => setSelectedOrder(order)}
@@ -171,9 +171,9 @@ export default function DashboardHome() {
 
                 <div>
                   <p className="text-sm text-gray-500 mb-2">Payment Receipt</p>
-                  {selectedOrder.receipt_url ? (
+                  {selectedOrder.payment_receipt ? (
                     <img
-                      src={selectedOrder.receipt_url}
+                      src={selectedOrder.payment_receipt}
                       alt="Payment Receipt"
                       className="w-full rounded-xl border object-contain max-h-80"
                     />

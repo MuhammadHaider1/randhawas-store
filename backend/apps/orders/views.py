@@ -2,7 +2,6 @@ from rest_framework import generics, permissions, parsers, views
 from rest_framework.response import Response
 from django.conf import settings
 from django.core.mail import send_mail
-from django.contrib.auth import get_user_model
 from .models import Order
 from .serializers import OrderSerializer, OrderListSerializer, OrderStatusSerializer
 
@@ -13,30 +12,8 @@ class OrderCreateView(generics.CreateAPIView):
     parser_classes = [parsers.MultiPartParser, parsers.FormParser, parsers.JSONParser]
 
     def perform_create(self, serializer):
-        payment_receipt = self.request.FILES.get('payment_receipt')
         user = self.request.user if self.request.user.is_authenticated else None
-
-        if not user:
-            email = (serializer.validated_data.get('customer_email') or '').strip().lower()
-            if email:
-                User = get_user_model()
-                user = User.objects.filter(email=email).first()
-                if not user:
-                    import secrets, string
-                    password = ''.join(secrets.choice(string.ascii_letters + string.digits) for _ in range(10))
-                    base = (email.split('@')[0] or 'user')[:30]
-                    username = base
-                    counter = 1
-                    while User.objects.filter(username=username).exists():
-                        username = f'{base}{counter}'
-                        counter += 1
-                    phone = (serializer.validated_data.get('customer_phone') or '')[:20]
-                    name = serializer.validated_data.get('customer_name') or ''
-                    user = User.objects.create_user(
-                        username=username, email=email, password=password,
-                        first_name=name, phone=phone,
-                    )
-
+        payment_receipt = self.request.FILES.get('payment_receipt')
         order = serializer.save(user=user, payment_receipt=payment_receipt)
 
         import threading
