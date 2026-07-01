@@ -14,31 +14,28 @@ class OrderCreateView(generics.CreateAPIView):
 
     def perform_create(self, serializer):
         payment_receipt = self.request.FILES.get('payment_receipt')
-        email = serializer.validated_data.get('customer_email', '')
-        phone = serializer.validated_data.get('customer_phone', '')
-        name = serializer.validated_data.get('customer_name', '')
-
         user = self.request.user if self.request.user.is_authenticated else None
-        if not user and email:
-            User = get_user_model()
-            email_clean = email.strip().lower()
-            user = User.objects.filter(email=email_clean).first()
-            if not user:
-                import secrets, string
-                password = ''.join(secrets.choice(string.ascii_letters + string.digits) for _ in range(10))
-                base_username = email_clean.split('@')[0][:30]
-                username = base_username
-                counter = 1
-                while User.objects.filter(username=username).exists():
-                    username = f'{base_username}{counter}'
-                    counter += 1
-                user = User.objects.create_user(
-                    username=username,
-                    email=email_clean,
-                    password=password,
-                    first_name=name,
-                    phone=phone,
-                )
+
+        if not user:
+            email = (serializer.validated_data.get('customer_email') or '').strip().lower()
+            if email:
+                User = get_user_model()
+                user = User.objects.filter(email=email).first()
+                if not user:
+                    import secrets, string
+                    password = ''.join(secrets.choice(string.ascii_letters + string.digits) for _ in range(10))
+                    base = (email.split('@')[0] or 'user')[:30]
+                    username = base
+                    counter = 1
+                    while User.objects.filter(username=username).exists():
+                        username = f'{base}{counter}'
+                        counter += 1
+                    phone = (serializer.validated_data.get('customer_phone') or '')[:20]
+                    name = serializer.validated_data.get('customer_name') or ''
+                    user = User.objects.create_user(
+                        username=username, email=email, password=password,
+                        first_name=name, phone=phone,
+                    )
 
         order = serializer.save(user=user, payment_receipt=payment_receipt)
 
