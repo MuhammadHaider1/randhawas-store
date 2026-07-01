@@ -35,7 +35,7 @@ export default function CartDrawer({ isOpen, onClose }) {
                     <Link to={`/shop/${item.slug}`} onClick={onClose}
                       className="font-medium text-sm hover:text-primary-600 line-clamp-1">{item.name}</Link>
                     <p className="text-xs text-gray-500">{item.size && `Size: ${item.size}`} {item.color && `| ${item.color}`}</p>
-                    <p className="text-sm font-semibold mt-1">${item.discountPrice || item.price}</p>
+                    <p className="text-sm font-semibold mt-1">PKR {item.discountPrice || item.price}</p>
                     <div className="flex items-center gap-2 mt-2">
                       <button onClick={() => dispatch(updateQuantity({ cartKey: item.cartKey, quantity: item.quantity - 1 }))}
                         className="p-1 rounded-md hover:bg-gray-200"><HiMinus size={14} /></button>
@@ -54,7 +54,7 @@ export default function CartDrawer({ isOpen, onClose }) {
               <div className="border-t p-4 space-y-3">
                 <div className="flex justify-between text-lg font-semibold">
                   <span>Total</span>
-                  <span>${total.toFixed(2)}</span>
+                  <span>PKR {total.toFixed(2)}</span>
                 </div>
                 <Link to="/checkout" onClick={onClose} className="btn-primary w-full text-center block">Checkout</Link>
                 <button onClick={onClose} className="w-full text-sm text-gray-500 hover:text-luxury-charcoal text-center">Continue Shopping</button>

@@ -32,7 +32,7 @@ export default function Cart() {
               <div className="flex-1 min-w-0">
                 <Link to={`/shop/${item.slug}`} className="font-medium hover:text-primary-600">{item.name}</Link>
                 <p className="text-sm text-gray-500">{item.size && `Size: ${item.size}`} {item.color && `| ${item.color}`}</p>
-                <p className="font-semibold mt-1">${(item.discountPrice || item.price).toFixed(2)}</p>
+                <p className="font-semibold mt-1">PKR {(item.discountPrice || item.price).toFixed(2)}</p>
                 <div className="flex items-center gap-3 mt-3">
                   <div className="flex items-center border rounded-lg">
                     <button onClick={() => dispatch(updateQuantity({ cartKey: item.cartKey, quantity: item.quantity - 1 }))}
@@ -45,7 +45,7 @@ export default function Cart() {
                     className="text-red-400 hover:text-red-600 p-2"><HiTrash size={18} /></button>
                 </div>
               </div>
-              <div className="text-right font-semibold">${((item.discountPrice || item.price) * item.quantity).toFixed(2)}</div>
+              <div className="text-right font-semibold">PKR {((item.discountPrice || item.price) * item.quantity).toFixed(2)}</div>
             </motion.div>
           ))}
         </div>
@@ -53,10 +53,10 @@ export default function Cart() {
         <div className="bg-white rounded-xl p-6 border h-fit sticky top-24">
           <h3 className="font-medium text-lg mb-4">Order Summary</h3>
           <div className="space-y-3 text-sm">
-            <div className="flex justify-between"><span className="text-gray-500">Subtotal ({itemCount} items)</span><span className="font-medium">${total.toFixed(2)}</span></div>
+            <div className="flex justify-between"><span className="text-gray-500">Subtotal ({itemCount} items)</span><span className="font-medium">PKR {total.toFixed(2)}</span></div>
             <div className="flex justify-between"><span className="text-gray-500">Shipping</span><span className="text-gray-500">Free</span></div>
             <hr />
-            <div className="flex justify-between text-lg font-semibold"><span>Total</span><span>${total.toFixed(2)}</span></div>
+            <div className="flex justify-between text-lg font-semibold"><span>Total</span><span>PKR {total.toFixed(2)}</span></div>
           </div>
           <Link to="/checkout" className="btn-primary w-full text-center mt-6 block">Proceed to Checkout</Link>
           <Link to="/shop" className="block text-center text-sm text-gray-500 hover:text-luxury-charcoal mt-3">Continue Shopping</Link>

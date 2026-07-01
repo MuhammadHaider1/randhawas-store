@@ -51,11 +51,11 @@ export default function OrderTrack() {
             <div><p className="text-sm text-gray-500">Customer</p><p className="font-medium">{order.customer_name}</p><p className="text-sm text-gray-500">{order.customer_phone}</p></div>
             <div><p className="text-sm text-gray-500 mb-2">Items</p>
               {order.items?.map((item, i) => (
-                <div key={i} className="flex justify-between text-sm"><span>{item.product_name} x{item.quantity}</span><span className="font-medium">${item.price}</span></div>
+                <div key={i} className="flex justify-between text-sm"><span>{item.product_name} x{item.quantity}</span><span className="font-medium">PKR {item.price}</span></div>
               ))}
             </div>
             <hr />
-            <div className="flex justify-between text-lg font-semibold"><span>Total</span><span>${order.total}</span></div>
+            <div className="flex justify-between text-lg font-semibold"><span>Total</span><span>PKR {order.total}</span></div>
           </motion.div>
         )}
       </motion.div>

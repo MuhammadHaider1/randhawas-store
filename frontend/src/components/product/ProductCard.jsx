@@ -52,11 +52,11 @@ export default function ProductCard({ product, index = 0 }) {
               <span className="text-xs text-amber-600 font-medium">Coming Soon</span>
             ) : product.has_discount ? (
               <>
-                <span className="font-semibold text-primary-600">${product.discount_price}</span>
-                <span className="text-sm text-gray-400 line-through">${product.price}</span>
+                <span className="font-semibold text-primary-600">PKR {product.discount_price}</span>
+                <span className="text-sm text-gray-400 line-through">PKR {product.price}</span>
               </>
             ) : (
-              <span className="font-semibold">${product.price}</span>
+              <span className="font-semibold">PKR {product.price}</span>
             )}
           </div>
         </div>

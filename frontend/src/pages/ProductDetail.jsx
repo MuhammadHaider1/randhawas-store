@@ -129,10 +129,10 @@ export default function ProductDetail() {
 
             <div className="flex items-baseline gap-3">
               {product.has_discount ? (
-                <><span className="text-3xl font-bold text-primary-600">${product.discount_price}</span>
-                  <span className="text-xl text-gray-400 line-through">${product.price}</span>
+                <><span className="text-3xl font-bold text-primary-600">PKR {product.discount_price}</span>
+                  <span className="text-xl text-gray-400 line-through">PKR {product.price}</span>
                   <span className="text-sm text-red-500 font-medium">Save {product.discount_percent}%</span></>
-              ) : <span className="text-3xl font-bold">${product.price}</span>}
+              ) : <span className="text-3xl font-bold">PKR {product.price}</span>}
             </div>
 
             {product.is_coming_soon ? (
