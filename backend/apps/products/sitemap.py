@@ -9,7 +9,7 @@ def sitemap_view(request):
     lines.append('<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">')
 
     now = timezone.now().date().isoformat()
-    site = request.build_absolute_uri('/').rstrip('/')
+    site = 'https://randhawas-store.vercel.app'
 
     pages = [
         ('/', '0.9', 'daily'),
@@ -25,11 +25,12 @@ def sitemap_view(request):
         lines.append(f'    <priority>{priority}</priority>')
         lines.append('  </url>')
 
+    seen = set()
     for cat in Category.objects.filter(is_active=True):
-        if cat.parent:
-            slug = cat.parent.slug
-        else:
-            slug = cat.slug
+        slug = cat.parent.slug if cat.parent else cat.slug
+        if slug in seen:
+            continue
+        seen.add(slug)
         lines.append('  <url>')
         lines.append(f'    <loc>{site}/shop/{slug}</loc>')
         lines.append(f'    <lastmod>{now}</lastmod>')
