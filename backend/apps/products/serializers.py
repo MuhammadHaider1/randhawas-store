@@ -90,10 +90,11 @@ class ProductDetailSerializer(serializers.ModelSerializer):
 class CategorySerializer(serializers.ModelSerializer):
     product_count = serializers.SerializerMethodField()
     children = serializers.SerializerMethodField()
+    random_product_image = serializers.SerializerMethodField()
 
     class Meta:
         model = Category
-        fields = ['id', 'name', 'slug', 'image', 'product_count', 'is_active', 'parent', 'children', 'attribute_definitions']
+        fields = ['id', 'name', 'slug', 'image', 'product_count', 'is_active', 'parent', 'children', 'attribute_definitions', 'random_product_image']
 
     def get_product_count(self, obj):
         if obj.parent is None:
@@ -104,3 +105,19 @@ class CategorySerializer(serializers.ModelSerializer):
     def get_children(self, obj):
         children = obj.children.filter(is_active=True).order_by('name')
         return CategorySerializer(children, many=True).data if children.exists() else []
+
+    def get_random_product_image(self, obj):
+        if obj.parent is None:
+            child_ids = obj.children.values_list('id', flat=True)
+            products = Product.objects.filter(category_id__in=list(child_ids) + [obj.id], is_active=True, images__isnull=False)
+        else:
+            products = obj.products.filter(is_active=True, images__isnull=False)
+        product = products.order_by('?').first()
+        if product:
+            primary = product.images.filter(is_primary=True).first()
+            if primary:
+                return primary.image_url
+            first_img = product.images.first()
+            if first_img:
+                return first_img.image_url
+        return None
