@@ -19,6 +19,7 @@ class Category(models.Model):
     parent = models.ForeignKey('self', on_delete=models.CASCADE, null=True, blank=True, related_name='children')
     image = models.ImageField(upload_to='categories/', blank=True, null=True)
     is_active = models.BooleanField(default=True)
+    attribute_definitions = models.JSONField(default=list, blank=True, help_text='Form field definitions for products in this category')
     created_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:
@@ -48,6 +49,7 @@ class Product(models.Model):
 
     sizes = models.JSONField(default=list, help_text='Available sizes e.g. ["36","37","38"]')
     colors = models.JSONField(default=list, help_text='Available colors e.g. [{"name":"Black","hex":"#000000"}]')
+    attributes = models.JSONField(default=dict, blank=True, help_text='Category-specific attributes')
     stock_count = models.IntegerField(default=0)
     is_in_stock = models.BooleanField(default=True)
     is_featured = models.BooleanField(default=False)
@@ -70,6 +72,18 @@ class Product(models.Model):
 
     def __str__(self):
         return self.name
+
+    def save(self, *args, **kwargs):
+        if not self.slug and self.name:
+            from django.utils.text import slugify
+            base = slugify(self.name)
+            slug = base
+            counter = 1
+            while Product.objects.filter(slug=slug).exclude(pk=self.pk).exists():
+                slug = f'{base}-{counter}'
+                counter += 1
+            self.slug = slug
+        super().save(*args, **kwargs)
 
     @property
     def discount_price(self):

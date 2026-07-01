@@ -44,8 +44,9 @@ export default function ProductDetail() {
   )
 
   const images = product.images || []
+  const sizes = product.attributes?.sizes || product.sizes || []
   const handleAdd = () => {
-    if (product.sizes?.length && !selectedSize) { toast.error('Please select a size'); return }
+    if (sizes?.length && !selectedSize) { toast.error('Please select a size'); return }
     dispatch(addToCart({ product, size: selectedSize, color: selectedColor, quantity }))
     toast.success('Added to cart!')
   }
@@ -147,17 +148,39 @@ export default function ProductDetail() {
 
             <p className="text-gray-600 leading-relaxed">{product.short_description}</p>
 
+            {/* Category-specific attributes */}
+            {product.attributes && Object.keys(product.attributes).length > 0 && (
+              <div className="grid grid-cols-2 gap-3 bg-gray-50 rounded-xl p-4">
+                {Object.entries(product.attributes).map(([key, value]) => {
+                  const labels = {
+                    sizes: 'Sizes', heel_type: 'Heel Type', heel_height: 'Heel Height',
+                    material: 'Material', bag_type: 'Bag Type', fabric: 'Fabric',
+                    stitching: 'Stitching', shade: 'Shade', volume: 'Volume',
+                    fragrance_type: 'Type', weight: 'Weight', size: 'Size',
+                  }
+                  const displayVal = Array.isArray(value) ? value.join(', ') : value
+                  if (!displayVal) return null
+                  return (
+                    <div key={key}>
+                      <span className="text-xs text-gray-400 uppercase tracking-wide">{labels[key] || key}</span>
+                      <p className="text-sm font-medium text-gray-800 mt-0.5">{displayVal}</p>
+                    </div>
+                  )
+                })}
+              </div>
+            )}
+
             {product.is_coming_soon ? (
               <div className="w-full bg-amber-100 text-amber-800 text-center py-4 rounded-full font-medium">
                 <HiClock size={20} className="inline mr-2" />Coming Soon – Stay Tuned
               </div>
             ) : (
               <>
-                {product.sizes?.length > 0 && (
+                {sizes?.length > 0 && (
                   <div>
                     <h3 className="text-sm font-medium mb-3">Size {selectedSize && <span className="text-primary-600">– {selectedSize}</span>}</h3>
                     <div className="flex flex-wrap gap-2">
-                      {product.sizes.map((size) => (
+                      {sizes.map((size) => (
                         <button key={size} onClick={() => setSelectedSize(size)}
                           className={`w-14 h-10 rounded-lg border text-sm font-medium transition-all ${selectedSize === size
                             ? 'bg-luxury-charcoal text-white border-luxury-charcoal'

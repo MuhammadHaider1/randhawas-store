@@ -69,19 +69,19 @@ export default function Navbar({ onCartOpen }) {
               <AnimatePresence>
                 {catDropdownOpen && (
                   <motion.div initial={{ opacity: 0, y: -8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -8 }}
-                    className="absolute left-0 mt-3 w-64 bg-white dark:bg-gray-800 rounded-xl shadow-lg border dark:border-gray-700 py-2 max-h-96 overflow-y-auto">
+                    className="absolute left-0 mt-3 w-56 bg-white dark:bg-gray-800 rounded-xl shadow-lg border dark:border-gray-700 py-2 max-h-96 overflow-y-auto">
                     {categories.map((cat) => (
-                      <div key={cat.id} className="group relative">
+                      <div key={cat.id}>
                         <Link to={`/shop?category__parent=${cat.id}`} onClick={() => setCatDropdownOpen(false)}
                           className="flex items-center justify-between px-4 py-2.5 text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors">
-                          <span>{cat.name}</span>
-                          {cat.children?.length > 0 && <HiChevronDown size={12} className="rotate-[-90deg] opacity-50" />}
+                          {cat.name}
+                          {cat.children?.length > 0 && <HiChevronDown size={12} className="opacity-40" />}
                         </Link>
                         {cat.children?.length > 0 && (
-                          <div className="pl-4 border-l border-gray-100 dark:border-gray-700 ml-4 mb-1 hidden group-hover:block">
+                          <div className="bg-gray-50 dark:bg-gray-700/50 rounded mx-2 mb-1 overflow-hidden">
                             {cat.children.map((child) => (
                               <Link key={child.id} to={`/shop?category=${child.id}`} onClick={() => setCatDropdownOpen(false)}
-                                className="block px-4 py-1.5 text-xs text-gray-500 dark:text-gray-400 hover:text-primary-600 dark:hover:text-primary-400 transition-colors">
+                                className="block px-6 py-2 text-sm text-gray-600 dark:text-gray-400 hover:text-primary-600 dark:hover:text-primary-400 hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors">
                                 {child.name}
                               </Link>
                             ))}

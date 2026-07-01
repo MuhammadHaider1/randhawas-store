@@ -1,3 +1,4 @@
+import json
 from rest_framework import serializers
 from django.db import models
 from apps.accounts.models import User
@@ -29,7 +30,7 @@ class CustomerSerializer(serializers.ModelSerializer):
 class CategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = Category
-        fields = ['id', 'name', 'slug', 'image', 'is_active']
+        fields = ['id', 'name', 'slug', 'image', 'is_active', 'attribute_definitions']
 
 class ColorSerializer(serializers.ModelSerializer):
     class Meta:
@@ -56,6 +57,27 @@ class AdminProductSerializer(serializers.ModelSerializer):
         if not img:
             img = obj.images.first()
         return img.image.url if img else None
+
+    def to_representation(self, instance):
+        data = super().to_representation(instance)
+        for field in ('sizes', 'colors', 'attributes'):
+            val = data.get(field)
+            if isinstance(val, str):
+                try:
+                    data[field] = json.loads(val)
+                except (json.JSONDecodeError, TypeError):
+                    data[field] = {} if field == 'attributes' else []
+        return data
+
+    def to_internal_value(self, data):
+        for field in ('sizes', 'colors', 'attributes'):
+            val = data.get(field)
+            if isinstance(val, str):
+                try:
+                    data[field] = json.loads(val)
+                except (json.JSONDecodeError, TypeError):
+                    data[field] = {} if field == 'attributes' else []
+        return super().to_internal_value(data)
 
 class AdminOrderSerializer(serializers.ModelSerializer):
     items = OrderItemSerializer(many=True, read_only=True)

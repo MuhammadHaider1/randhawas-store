@@ -1,3 +1,4 @@
+import json
 from rest_framework import serializers
 from django.db.models import Count
 from .models import Category, Product, ProductImage, Review
@@ -51,7 +52,7 @@ class ProductDetailSerializer(serializers.ModelSerializer):
             'id', 'name', 'slug', 'category', 'category_name',
             'description', 'short_description', 'price', 'discount_percent',
             'discount_price', 'has_discount', 'gender', 'heel_type',
-            'heel_height', 'sizes', 'colors', 'stock_count', 'is_in_stock',
+            'heel_height', 'sizes', 'colors', 'attributes', 'stock_count', 'is_in_stock',
             'is_featured', 'is_coming_soon', 'sold_count', 'images', 'reviews', 'average_rating',
             'review_count', 'meta_title', 'meta_description', 'created_at', 'updated_at'
         ]
@@ -70,13 +71,24 @@ class ProductDetailSerializer(serializers.ModelSerializer):
             order__status__in=['confirmed', 'shipped', 'delivered']
         ).count()
 
+    def to_representation(self, instance):
+        data = super().to_representation(instance)
+        for field in ('sizes', 'colors', 'attributes'):
+            val = data.get(field)
+            if isinstance(val, str):
+                try:
+                    data[field] = json.loads(val)
+                except (json.JSONDecodeError, TypeError):
+                    data[field] = {} if field == 'attributes' else []
+        return data
+
 class CategorySerializer(serializers.ModelSerializer):
     product_count = serializers.SerializerMethodField()
     children = serializers.SerializerMethodField()
 
     class Meta:
         model = Category
-        fields = ['id', 'name', 'slug', 'image', 'product_count', 'is_active', 'parent', 'children']
+        fields = ['id', 'name', 'slug', 'image', 'product_count', 'is_active', 'parent', 'children', 'attribute_definitions']
 
     def get_product_count(self, obj):
         if obj.parent is None:

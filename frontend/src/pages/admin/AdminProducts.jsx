@@ -1,15 +1,14 @@
 import { useState, useEffect, useCallback } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { HiPlus, HiPencil, HiTrash, HiX, HiPhotograph, HiSearch } from 'react-icons/hi'
+import { HiPlus, HiPencil, HiTrash, HiX, HiSearch } from 'react-icons/hi'
 import api from '../../utils/api'
 
-const HEEL_TYPES = ['', 'stiletto', 'block', 'wedge', 'kitten', 'platform', 'cone', 'flat', 'sandal', 'boot']
 const GENDER_CHOICES = ['women', 'men', 'unisex']
 
 const emptyProduct = {
   name: '', slug: '', category: '', description: '', short_description: '',
   price: '', discount_percent: 0, gender: 'women', heel_type: '',
-  heel_height: '', sizes: '[]', colors: '[]', stock_count: 0,
+  heel_height: '', sizes: '[]', colors: '[]', attributes: '{}', stock_count: 0,
   is_in_stock: true, is_featured: false, is_coming_soon: false, is_active: true,
 }
 
@@ -22,7 +21,7 @@ export default function AdminProducts() {
   const [editing, setEditing] = useState(null)
   const [form, setForm] = useState(emptyProduct)
   const [imageFiles, setImageFiles] = useState([])
-  const [imagePreview, setImagePreview] = useState(null)
+  const [imagePreviews, setImagePreviews] = useState([])
   const [saving, setSaving] = useState(false)
 
   const fetchData = useCallback(async () => {
@@ -39,8 +38,34 @@ export default function AdminProducts() {
 
   useEffect(() => { fetchData() }, [fetchData])
 
+  const flatCats = categories.flatMap((p) => [
+    { ...p, _depth: 0, _parent_name: null },
+    ...(p.children || []).map((c) => ({ ...c, _depth: 1, _parent_name: p.name })),
+  ])
+
+  const selectedCatId = form.category ? Number(form.category) : null
+  const selectedCat = flatCats.find((c) => c.id === selectedCatId)
+  const parentCat = selectedCat?._depth === 1
+    ? categories.find((p) => p.id === selectedCat.parent)
+    : selectedCat
+  const attrDefs = parentCat?.attribute_definitions || []
+
+  const updateAttr = (key, value) => {
+    let attrs = {}
+    try { attrs = JSON.parse(form.attributes || '{}') } catch { attrs = {} }
+    attrs[key] = value
+    setForm({ ...form, attributes: JSON.stringify(attrs) })
+  }
+
+  const getAttr = (key) => {
+    try { return JSON.parse(form.attributes || '{}')[key] } catch { return undefined }
+  }
+
   const openEdit = (product) => {
     setEditing(product)
+    const attrsStr = product.attributes && typeof product.attributes === 'object'
+      ? JSON.stringify(product.attributes)
+      : (product.attributes || '{}')
     setForm({
       name: product.name || '',
       slug: product.slug || '',
@@ -54,6 +79,7 @@ export default function AdminProducts() {
       heel_height: product.heel_height || '',
       sizes: Array.isArray(product.sizes) ? JSON.stringify(product.sizes) : (product.sizes || '[]'),
       colors: Array.isArray(product.colors) ? JSON.stringify(product.colors) : (product.colors || '[]'),
+      attributes: attrsStr,
       stock_count: product.stock_count || 0,
       is_in_stock: product.is_in_stock ?? true,
       is_featured: product.is_featured ?? false,
@@ -61,7 +87,7 @@ export default function AdminProducts() {
       is_active: product.is_active ?? true,
     })
     setImageFiles([])
-    setImagePreview(product.primary_image || null)
+    setImagePreviews(product.images?.map((i) => i.image) || [])
     setModalOpen(true)
   }
 
@@ -69,7 +95,7 @@ export default function AdminProducts() {
     setEditing(null)
     setForm(emptyProduct)
     setImageFiles([])
-    setImagePreview(null)
+    setImagePreviews([])
     setModalOpen(true)
   }
 
@@ -79,20 +105,19 @@ export default function AdminProducts() {
     try {
       const fd = new FormData()
       Object.entries(form).forEach(([k, v]) => {
-        if (k === 'sizes' || k === 'colors') {
-          try { fd.append(k, JSON.stringify(JSON.parse(v || '[]'))) }
-          catch { fd.append(k, '[]') }
+        if (k === 'sizes' || k === 'colors' || k === 'attributes') {
+          try { fd.append(k, JSON.stringify(JSON.parse(v || (k === 'attributes' ? '{}' : '[]')))) }
+          catch { fd.append(k, k === 'attributes' ? '{}' : '[]') }
         } else {
           fd.append(k, v ?? '')
         }
       })
       imageFiles.forEach((file) => fd.append('images', file))
 
-      const cfg = {}
       if (editing) {
-        await api.patch(`/dashboard/products/${editing.id}/`, fd, cfg)
+        await api.patch(`/dashboard/products/${editing.id}/`, fd)
       } else {
-        await api.post('/dashboard/products/', fd, cfg)
+        await api.post('/dashboard/products/', fd)
       }
       setModalOpen(false)
       fetchData()
@@ -111,9 +136,7 @@ export default function AdminProducts() {
   const handleImageSelect = (e) => {
     const files = Array.from(e.target.files)
     setImageFiles(files)
-    if (files.length > 0) {
-      setImagePreview(URL.createObjectURL(files[0]))
-    }
+    setImagePreviews(files.map((f) => URL.createObjectURL(f)))
   }
 
   const filtered = products.filter((p) =>
@@ -221,17 +244,19 @@ export default function AdminProducts() {
                 <div className="grid sm:grid-cols-2 gap-4">
                   <div className="sm:col-span-2">
                     <label className="block text-sm font-medium text-gray-700 mb-1">Name</label>
-                    <input value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value, slug: e.target.value.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '') })}
+                    <input value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })}
                       className="w-full border rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-primary-500 outline-none" required />
                   </div>
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-1">Slug</label>
-                    <input value={form.slug} onChange={(e) => setForm({ ...form, slug: e.target.value })}
-                      className="w-full border rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-primary-500 outline-none" required />
+                    <input value={form.slug} onChange={(e) => setForm({ ...form, slug: e.target.value.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '') })}
+                      className="w-full border rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-primary-500 outline-none" placeholder="Auto-generated from name" />
                   </div>
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-1">Category</label>
-                    <select value={form.category} onChange={(e) => setForm({ ...form, category: e.target.value })}
+                    <select value={form.category} onChange={(e) => {
+                      setForm({ ...form, category: e.target.value, attributes: '{}' })
+                    }}
                       className="w-full border rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-primary-500 outline-none">
                       <option value="">Select category</option>
                       {categories.flatMap((p) => [
@@ -257,28 +282,58 @@ export default function AdminProducts() {
                       {GENDER_CHOICES.map((g) => <option key={g} value={g}>{g}</option>)}
                     </select>
                   </div>
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">Type (e.g. heel/stiletto)</label>
-                    <select value={form.heel_type} onChange={(e) => setForm({ ...form, heel_type: e.target.value })}
-                      className="w-full border rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-primary-500 outline-none">
-                      {HEEL_TYPES.map((h) => <option key={h} value={h}>{h || '—'}</option>)}
-                    </select>
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">Height / Size info</label>
-                    <input value={form.heel_height} onChange={(e) => setForm({ ...form, heel_height: e.target.value })}
-                      className="w-full border rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-primary-500 outline-none" />
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">Sizes (JSON array)</label>
-                    <input value={form.sizes} onChange={(e) => setForm({ ...form, sizes: e.target.value })}
-                      className="w-full border rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-primary-500 outline-none" placeholder='["36","37","38"]' />
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">Colors (JSON array)</label>
-                    <input value={form.colors} onChange={(e) => setForm({ ...form, colors: e.target.value })}
-                      className="w-full border rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-primary-500 outline-none" placeholder='[{"name":"Black","hex":"#000000"}]' />
-                  </div>
+
+                  {/* Category-specific dynamic attributes */}
+                  {attrDefs.length > 0 && (
+                    <div className="sm:col-span-2 border-t pt-4 mt-2">
+                      <h4 className="text-sm font-semibold text-gray-700 mb-3">
+                        {parentCat?.name} Attributes
+                      </h4>
+                      <div className="grid sm:grid-cols-2 gap-4">
+                        {attrDefs.map((def) => (
+                          <div key={def.key}>
+                            <label className="block text-sm font-medium text-gray-700 mb-1">{def.label}</label>
+                            {def.type === 'text' && (
+                              <input type="text" value={getAttr(def.key) || ''}
+                                onChange={(e) => updateAttr(def.key, e.target.value)}
+                                placeholder={def.placeholder || ''}
+                                className="w-full border rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-primary-500 outline-none" />
+                            )}
+                            {def.type === 'select' && (
+                              <select value={getAttr(def.key) || ''}
+                                onChange={(e) => updateAttr(def.key, e.target.value)}
+                                className="w-full border rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-primary-500 outline-none">
+                                <option value="">Select {def.label}</option>
+                                {(def.options || []).map((opt) => (
+                                  <option key={opt} value={opt}>{opt}</option>
+                                ))}
+                              </select>
+                            )}
+                            {def.type === 'select_multiple' && (
+                              <div className="flex flex-wrap gap-2">
+                                {(def.options || []).map((opt) => {
+                                  const checked = (getAttr(def.key) || []).includes(opt)
+                                  return (
+                                    <label key={opt}
+                                      className={`px-3 py-1.5 rounded-lg border text-sm cursor-pointer transition-all ${checked ? 'bg-primary-600 text-white border-primary-600' : 'border-gray-200 text-gray-600 hover:border-gray-400'}`}>
+                                      <input type="checkbox" className="hidden"
+                                        checked={checked}
+                                        onChange={() => {
+                                          const current = getAttr(def.key) || []
+                                          updateAttr(def.key, checked ? current.filter((v) => v !== opt) : [...current, opt])
+                                        }} />
+                                      {opt}
+                                    </label>
+                                  )
+                                })}
+                              </div>
+                            )}
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-1">Stock Count</label>
                     <input type="number" value={form.stock_count} onChange={(e) => setForm({ ...form, stock_count: parseInt(e.target.value) || 0 })}
@@ -301,11 +356,22 @@ export default function AdminProducts() {
                   <label className="block text-sm font-medium text-gray-700 mb-1">Images</label>
                   <input type="file" multiple accept="image/*" onChange={handleImageSelect}
                     className="w-full text-sm file:mr-3 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-medium file:bg-primary-50 file:text-primary-700 hover:file:bg-primary-100" />
-                  {imagePreview && (
-                    <div className="mt-2 relative inline-block">
-                      <img src={imagePreview} alt="" className="h-20 w-20 object-cover rounded-lg border" />
+                  {imagePreviews.length > 0 && (
+                    <div className="mt-2 flex flex-wrap gap-2">
+                      {imagePreviews.map((src, i) => (
+                        <div key={i} className="relative inline-block">
+                          <img src={src} alt="" className="h-20 w-20 object-cover rounded-lg border" />
+                        </div>
+                      ))}
                     </div>
                   )}
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Colors (JSON)</label>
+                  <input value={form.colors} onChange={(e) => setForm({ ...form, colors: e.target.value })}
+                    className="w-full border rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-primary-500 outline-none"
+                    placeholder='[{"name":"Black","hex":"#000000"}]' />
                 </div>
 
                 <div className="flex flex-wrap gap-6">

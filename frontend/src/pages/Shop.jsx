@@ -2,15 +2,9 @@ import { useEffect, useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import { motion, AnimatePresence } from 'framer-motion'
-import { HiAdjustments, HiX } from 'react-icons/hi'
+import { HiAdjustments, HiX, HiChevronDown } from 'react-icons/hi'
 import { fetchProducts } from '../store/productSlice'
 import ProductCard from '../components/product/ProductCard'
-
-const filters = [
-  { key: 'category', label: 'Subcategory', options: 'dynamic' },
-  { key: 'category__parent', label: 'Category', options: 'dynamic_parents' },
-  { key: 'is_featured', label: 'Featured', options: [{ value: 'true', label: 'Featured Only' }] },
-]
 
 export default function Shop() {
   const dispatch = useDispatch()
@@ -19,11 +13,15 @@ export default function Shop() {
   const [searchParams, setSearchParams] = useSearchParams()
   const [mobileFilters, setMobileFilters] = useState(false)
   const [priceRange, setPriceRange] = useState([0, 500])
+  const [expandedCat, setExpandedCat] = useState(null)
 
   useEffect(() => {
     const params = Object.fromEntries(searchParams.entries())
     dispatch(fetchProducts(params))
   }, [dispatch, searchParams])
+
+  const activeParent = searchParams.get('category__parent')
+  const activeChild = searchParams.get('category')
 
   const updateFilter = (key, value) => {
     const params = Object.fromEntries(searchParams.entries())
@@ -55,27 +53,55 @@ export default function Shop() {
         <aside className="hidden lg:block w-64 flex-shrink-0">
           <div className="sticky top-24 space-y-6">
             <div className="flex items-center justify-between">
-              <h3 className="font-medium">Filters</h3>
+              <h3 className="font-medium">Categories</h3>
               <button onClick={clearFilters} className="text-xs text-primary-600 hover:underline">Clear</button>
             </div>
-            {filters.map((f) => (
-              <div key={f.key}>
-                <h4 className="text-sm font-medium mb-3 capitalize">{f.label}</h4>
-                <div className="space-y-2">
-                      {(f.options === 'dynamic' ? catList.flatMap((p) => (p.children || []).map((c) => ({ value: String(c.id), label: `${p.name} → ${c.name}` }))) : f.options === 'dynamic_parents' ? catList.map((c) => ({ value: String(c.id), label: c.name })) : f.options).map((opt) => {
-                    const val = typeof opt === 'string' ? opt : opt.value
-                    const label = typeof opt === 'string' ? opt : opt.label
-                    const isActive = searchParams.get(f.key) === val
-                    return (
-                      <button key={val} onClick={() => updateFilter(f.key, val)}
-                        className={`block text-sm w-full text-left px-3 py-1.5 rounded-lg transition-colors ${isActive ? 'bg-primary-600 text-white' : 'text-gray-600 hover:bg-gray-100'}`}>
-                        {label}
-                      </button>
-                    )
-                  })}
-                </div>
-              </div>
-            ))}
+
+            <div className="space-y-1">
+              {catList.map((parent) => {
+                const isParentActive = activeParent === String(parent.id)
+                const isExpanded = expandedCat === parent.id || isParentActive
+                return (
+                  <div key={parent.id}>
+                    <button
+                      onClick={() => {
+                        if (parent.children?.length) {
+                          setExpandedCat(isExpanded ? null : parent.id)
+                        }
+                        updateFilter('category__parent', String(parent.id))
+                      }}
+                      className={`w-full flex items-center justify-between px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
+                        isParentActive ? 'bg-primary-600 text-white' : 'text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-800'
+                      }`}>
+                      {parent.name}
+                      {parent.children?.length > 0 && (
+                        <HiChevronDown size={14} className={`transition-transform ${isExpanded ? 'rotate-180' : ''}`} />
+                      )}
+                    </button>
+                    {parent.children?.length > 0 && isExpanded && (
+                      <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }}
+                        className="overflow-hidden">
+                        <div className="ml-3 mt-1 space-y-0.5 border-l-2 border-gray-100 dark:border-gray-700 pl-2">
+                          {parent.children.map((child) => {
+                            const isChildActive = activeChild === String(child.id)
+                            return (
+                              <button key={child.id}
+                                onClick={() => updateFilter('category', String(child.id))}
+                                className={`block w-full text-left px-3 py-1.5 rounded-lg text-sm transition-colors ${
+                                  isChildActive ? 'bg-primary-100 text-primary-700 dark:bg-primary-900 dark:text-primary-300' : 'text-gray-500 hover:text-gray-700 hover:bg-gray-50 dark:text-gray-400 dark:hover:bg-gray-800'
+                                }`}>
+                                {child.name}
+                              </button>
+                            )
+                          })}
+                        </div>
+                      </motion.div>
+                    )}
+                  </div>
+                )
+              })}
+            </div>
+
             <div>
               <h4 className="text-sm font-medium mb-3">Price Range</h4>
               <div className="flex items-center gap-2">
@@ -122,28 +148,45 @@ export default function Shop() {
             <motion.div initial={{ x: '100%' }} animate={{ x: 0 }} exit={{ x: '100%' }}
               className="fixed top-0 right-0 bottom-0 w-80 bg-white z-50 p-6 lg:hidden">
               <div className="flex items-center justify-between mb-6">
-                <h3 className="font-medium">Filters</h3>
+                <h3 className="font-medium">Categories</h3>
                 <button onClick={() => setMobileFilters(false)}><HiX size={22} /></button>
               </div>
-              <div className="space-y-6">
-                {filters.map((f) => (
-                  <div key={f.key}>
-                    <h4 className="text-sm font-medium mb-3 capitalize">{f.label}</h4>
-                    <div className="space-y-2">
-                  {(f.options === 'dynamic' ? catList.flatMap((p) => (p.children || []).map((c) => ({ value: String(c.id), label: `${p.name} → ${c.name}` }))) : f.options === 'dynamic_parents' ? catList.map((c) => ({ value: String(c.id), label: c.name })) : f.options).map((opt) => {
-                        const val = typeof opt === 'string' ? opt : opt.value
-                        const label = typeof opt === 'string' ? opt : opt.label
-                        const isActive = searchParams.get(f.key) === val
-                        return (
-                          <button key={val} onClick={() => { updateFilter(f.key, val); setMobileFilters(false) }}
-                            className={`block text-sm w-full text-left px-3 py-1.5 rounded-lg ${isActive ? 'bg-primary-600 text-white' : 'text-gray-600 hover:bg-gray-100'}`}>
-                            {label}
-                          </button>
-                        )
-                      })}
+              <div className="space-y-1">
+                {catList.map((parent) => {
+                  const isParentActive = activeParent === String(parent.id)
+                  const isExpanded = expandedCat === parent.id || isParentActive
+                  return (
+                    <div key={parent.id}>
+                      <button
+                        onClick={() => {
+                          if (parent.children?.length) setExpandedCat(isExpanded ? null : parent.id)
+                          updateFilter('category__parent', String(parent.id))
+                          setMobileFilters(false)
+                        }}
+                        className={`w-full flex items-center justify-between px-3 py-2 rounded-lg text-sm font-medium ${
+                          isParentActive ? 'bg-primary-600 text-white' : 'text-gray-700 hover:bg-gray-100'
+                        }`}>
+                        {parent.name}
+                        {parent.children?.length > 0 && (
+                          <HiChevronDown size={14} className={`transition-transform ${isExpanded ? 'rotate-180' : ''}`} />
+                        )}
+                      </button>
+                      {parent.children?.length > 0 && isExpanded && (
+                        <div className="ml-3 mt-1 space-y-0.5 border-l-2 border-gray-100 pl-2">
+                          {parent.children.map((child) => (
+                            <button key={child.id}
+                              onClick={() => { updateFilter('category', String(child.id)); setMobileFilters(false) }}
+                              className={`block w-full text-left px-3 py-1.5 rounded-lg text-sm ${
+                                activeChild === String(child.id) ? 'bg-primary-100 text-primary-700' : 'text-gray-500 hover:bg-gray-50'
+                              }`}>
+                              {child.name}
+                            </button>
+                          ))}
+                        </div>
+                      )}
                     </div>
-                  </div>
-                ))}
+                  )
+                })}
               </div>
             </motion.div>
           </>
