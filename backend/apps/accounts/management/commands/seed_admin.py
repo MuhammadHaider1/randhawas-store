@@ -11,9 +11,11 @@ class Command(BaseCommand):
             self.stdout.write(self.style.WARNING('Admin user "Hira-R" already exists'))
             return
 
-        User.objects.create_superuser(
+        user = User.objects.create_superuser(
             username='Hira-R',
             email='hirarandhawa660@gmail.com',
             password='HiraRandhawastore2026'
         )
+        user.is_admin_user = True
+        user.save(update_fields=['is_admin_user'])
         self.stdout.write(self.style.SUCCESS('Admin user "Hira-R" created successfully'))
