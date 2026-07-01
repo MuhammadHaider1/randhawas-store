@@ -9,7 +9,7 @@ from .serializers import (
 )
 
 class CategoryListView(generics.ListAPIView):
-    queryset = Category.objects.filter(is_active=True).order_by('name')
+    queryset = Category.objects.filter(is_active=True, parent=None).order_by('name').prefetch_related('children')
     serializer_class = CategorySerializer
 
 class ProductListView(generics.ListAPIView):
@@ -18,6 +18,7 @@ class ProductListView(generics.ListAPIView):
     filter_backends = [DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter]
     filterset_fields = {
         'category': ['exact'],
+        'category__parent': ['exact'],
         'heel_type': ['exact'],
         'heel_height': ['exact'],
         'is_featured': ['exact'],

@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom'
 
 export default function CategoryCard({ category }) {
   return (
-    <Link to={`/shop?category=${category.id}`}
+    <Link to={`/shop?category__parent=${category.id}`}
       className="group relative aspect-square rounded-2xl overflow-hidden bg-gray-100 block">
       {category.image && (
         <img src={category.image} alt={category.name}

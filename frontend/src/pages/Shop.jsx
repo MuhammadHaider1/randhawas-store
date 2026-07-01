@@ -7,7 +7,8 @@ import { fetchProducts } from '../store/productSlice'
 import ProductCard from '../components/product/ProductCard'
 
 const filters = [
-  { key: 'category', label: 'Category', options: 'dynamic' },
+  { key: 'category', label: 'Subcategory', options: 'dynamic' },
+  { key: 'category__parent', label: 'Category', options: 'dynamic_parents' },
   { key: 'is_featured', label: 'Featured', options: [{ value: 'true', label: 'Featured Only' }] },
 ]
 
@@ -61,7 +62,7 @@ export default function Shop() {
               <div key={f.key}>
                 <h4 className="text-sm font-medium mb-3 capitalize">{f.label}</h4>
                 <div className="space-y-2">
-                  {(f.options === 'dynamic' ? catList.map((c) => ({ value: String(c.id), label: c.name })) : f.options).map((opt) => {
+                      {(f.options === 'dynamic' ? catList.flatMap((p) => (p.children || []).map((c) => ({ value: String(c.id), label: `${p.name} → ${c.name}` }))) : f.options === 'dynamic_parents' ? catList.map((c) => ({ value: String(c.id), label: c.name })) : f.options).map((opt) => {
                     const val = typeof opt === 'string' ? opt : opt.value
                     const label = typeof opt === 'string' ? opt : opt.label
                     const isActive = searchParams.get(f.key) === val
@@ -129,7 +130,7 @@ export default function Shop() {
                   <div key={f.key}>
                     <h4 className="text-sm font-medium mb-3 capitalize">{f.label}</h4>
                     <div className="space-y-2">
-                      {(f.options === 'dynamic' ? catList.map((c) => ({ value: String(c.id), label: c.name })) : f.options).map((opt) => {
+                  {(f.options === 'dynamic' ? catList.flatMap((p) => (p.children || []).map((c) => ({ value: String(c.id), label: `${p.name} → ${c.name}` }))) : f.options === 'dynamic_parents' ? catList.map((c) => ({ value: String(c.id), label: c.name })) : f.options).map((opt) => {
                         const val = typeof opt === 'string' ? opt : opt.value
                         const label = typeof opt === 'string' ? opt : opt.label
                         const isActive = searchParams.get(f.key) === val

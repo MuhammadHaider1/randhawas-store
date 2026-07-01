@@ -72,10 +72,18 @@ class ProductDetailSerializer(serializers.ModelSerializer):
 
 class CategorySerializer(serializers.ModelSerializer):
     product_count = serializers.SerializerMethodField()
+    children = serializers.SerializerMethodField()
 
     class Meta:
         model = Category
-        fields = ['id', 'name', 'slug', 'image', 'product_count', 'is_active']
+        fields = ['id', 'name', 'slug', 'image', 'product_count', 'is_active', 'parent', 'children']
 
     def get_product_count(self, obj):
+        if obj.parent is None:
+            child_ids = obj.children.values_list('id', flat=True)
+            return Product.objects.filter(category_id__in=list(child_ids) + [obj.id], is_active=True).count()
         return obj.products.filter(is_active=True).count()
+
+    def get_children(self, obj):
+        children = obj.children.filter(is_active=True).order_by('name')
+        return CategorySerializer(children, many=True).data if children.exists() else []

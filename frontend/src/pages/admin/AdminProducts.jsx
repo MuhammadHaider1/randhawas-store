@@ -234,7 +234,10 @@ export default function AdminProducts() {
                     <select value={form.category} onChange={(e) => setForm({ ...form, category: e.target.value })}
                       className="w-full border rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-primary-500 outline-none">
                       <option value="">Select category</option>
-                      {categories.map((c) => <option key={c.id} value={c.id}>{c.name}</option>)}
+                      {categories.flatMap((p) => [
+                        <option key={p.id} value={p.id} className="font-medium">— {p.name} —</option>,
+                        ...(p.children || []).map((c) => <option key={c.id} value={c.id}>&nbsp;&nbsp;{c.name}</option>),
+                      ])}
                     </select>
                   </div>
                   <div>

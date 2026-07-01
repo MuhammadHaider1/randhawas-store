@@ -16,6 +16,7 @@ class Color(models.Model):
 class Category(models.Model):
     name = models.CharField(max_length=100)
     slug = models.SlugField(max_length=120, unique=True)
+    parent = models.ForeignKey('self', on_delete=models.CASCADE, null=True, blank=True, related_name='children')
     image = models.ImageField(upload_to='categories/', blank=True, null=True)
     is_active = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True)
