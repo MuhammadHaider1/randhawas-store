@@ -1,0 +1,1476 @@
+[
+  {
+    "model": "products.color",
+    "pk": 1,
+    "fields": {
+      "name": "Cheery Red",
+      "hex_code": "#D2042D",
+      "sort_order": 1
+    }
+  },
+  {
+    "model": "products.color",
+    "pk": 2,
+    "fields": {
+      "name": "Burgundy",
+      "hex_code": "#800020",
+      "sort_order": 2
+    }
+  },
+  {
+    "model": "products.category",
+    "pk": 11,
+    "fields": {
+      "name": "Shoes",
+      "slug": "shoes",
+      "parent": null,
+      "image": "",
+      "is_active": true,
+      "attribute_definitions": [
+        {
+          "key": "sizes",
+          "label": "Shoe Size",
+          "type": "select_multiple",
+          "options": [
+            "35",
+            "36",
+            "37",
+            "38",
+            "39",
+            "40",
+            "41",
+            "42"
+          ]
+        },
+        {
+          "key": "heel_type",
+          "label": "Heel Type",
+          "type": "select",
+          "options": [
+            "Stiletto",
+            "Block",
+            "Wedge",
+            "Kitten",
+            "Platform",
+            "Cone",
+            "Flat",
+            "Sandal",
+            "Boot"
+          ]
+        },
+        {
+          "key": "heel_height",
+          "label": "Heel Height",
+          "type": "text",
+          "placeholder": "e.g. 10 cm"
+        }
+      ],
+      "created_at": "2026-07-01T07:16:09.951Z"
+    }
+  },
+  {
+    "model": "products.category",
+    "pk": 12,
+    "fields": {
+      "name": "Flats",
+      "slug": "flats",
+      "parent": 11,
+      "image": "",
+      "is_active": true,
+      "attribute_definitions": [],
+      "created_at": "2026-07-01T07:16:09.961Z"
+    }
+  },
+  {
+    "model": "products.category",
+    "pk": 13,
+    "fields": {
+      "name": "Sandals",
+      "slug": "sandals",
+      "parent": 11,
+      "image": "",
+      "is_active": true,
+      "attribute_definitions": [],
+      "created_at": "2026-07-01T07:16:09.972Z"
+    }
+  },
+  {
+    "model": "products.category",
+    "pk": 14,
+    "fields": {
+      "name": "Boots",
+      "slug": "boots",
+      "parent": 11,
+      "image": "",
+      "is_active": true,
+      "attribute_definitions": [],
+      "created_at": "2026-07-01T07:16:09.984Z"
+    }
+  },
+  {
+    "model": "products.category",
+    "pk": 15,
+    "fields": {
+      "name": "Sneakers",
+      "slug": "sneakers",
+      "parent": 11,
+      "image": "",
+      "is_active": true,
+      "attribute_definitions": [],
+      "created_at": "2026-07-01T07:16:09.995Z"
+    }
+  },
+  {
+    "model": "products.category",
+    "pk": 16,
+    "fields": {
+      "name": "Pumps",
+      "slug": "pumps",
+      "parent": 11,
+      "image": "",
+      "is_active": true,
+      "attribute_definitions": [],
+      "created_at": "2026-07-01T07:16:10.006Z"
+    }
+  },
+  {
+    "model": "products.category",
+    "pk": 17,
+    "fields": {
+      "name": "Bangles",
+      "slug": "bangles",
+      "parent": null,
+      "image": "",
+      "is_active": true,
+      "attribute_definitions": [
+        {
+          "key": "sizes",
+          "label": "Size",
+          "type": "select_multiple",
+          "options": [
+            "Small (2.2\")",
+            "Medium (2.4\")",
+            "Large (2.6\")",
+            "Extra Large (2.8\")"
+          ]
+        },
+        {
+          "key": "material",
+          "label": "Material",
+          "type": "select",
+          "options": [
+            "Glass",
+            "Metal",
+            "Gold Plated",
+            "Silver",
+            "Acrylic",
+            "Brass",
+            "Kundan"
+          ]
+        }
+      ],
+      "created_at": "2026-07-01T07:16:10.018Z"
+    }
+  },
+  {
+    "model": "products.category",
+    "pk": 18,
+    "fields": {
+      "name": "Glass Bangles",
+      "slug": "glass-bangles",
+      "parent": 17,
+      "image": "",
+      "is_active": true,
+      "attribute_definitions": [],
+      "created_at": "2026-07-01T07:16:10.029Z"
+    }
+  },
+  {
+    "model": "products.category",
+    "pk": 19,
+    "fields": {
+      "name": "Metal Bangles",
+      "slug": "metal-bangles",
+      "parent": 17,
+      "image": "",
+      "is_active": true,
+      "attribute_definitions": [],
+      "created_at": "2026-07-01T07:16:10.040Z"
+    }
+  },
+  {
+    "model": "products.category",
+    "pk": 20,
+    "fields": {
+      "name": "Bridal Bangles",
+      "slug": "bridal-bangles",
+      "parent": 17,
+      "image": "",
+      "is_active": true,
+      "attribute_definitions": [],
+      "created_at": "2026-07-01T07:16:10.051Z"
+    }
+  },
+  {
+    "model": "products.category",
+    "pk": 21,
+    "fields": {
+      "name": "Chooda",
+      "slug": "chooda",
+      "parent": 17,
+      "image": "",
+      "is_active": true,
+      "attribute_definitions": [],
+      "created_at": "2026-07-01T07:16:10.062Z"
+    }
+  },
+  {
+    "model": "products.category",
+    "pk": 22,
+    "fields": {
+      "name": "Handbags",
+      "slug": "handbags",
+      "parent": null,
+      "image": "",
+      "is_active": true,
+      "attribute_definitions": [
+        {
+          "key": "bag_type",
+          "label": "Bag Type",
+          "type": "select",
+          "options": [
+            "Clutch",
+            "Tote",
+            "Shoulder",
+            "Crossbody",
+            "Backpack",
+            "Sling",
+            "Wallet",
+            "Hobo"
+          ]
+        },
+        {
+          "key": "material",
+          "label": "Material",
+          "type": "select",
+          "options": [
+            "Leather",
+            "Synthetic",
+            "Canvas",
+            "Fabric",
+            "Jute",
+            "Woven"
+          ]
+        }
+      ],
+      "created_at": "2026-07-01T07:16:10.073Z"
+    }
+  },
+  {
+    "model": "products.category",
+    "pk": 23,
+    "fields": {
+      "name": "Clutches",
+      "slug": "clutches",
+      "parent": 22,
+      "image": "",
+      "is_active": true,
+      "attribute_definitions": [],
+      "created_at": "2026-07-01T07:16:10.085Z"
+    }
+  },
+  {
+    "model": "products.category",
+    "pk": 24,
+    "fields": {
+      "name": "Tote Bags",
+      "slug": "tote-bags",
+      "parent": 22,
+      "image": "",
+      "is_active": true,
+      "attribute_definitions": [],
+      "created_at": "2026-07-01T07:16:10.096Z"
+    }
+  },
+  {
+    "model": "products.category",
+    "pk": 25,
+    "fields": {
+      "name": "Shoulder Bags",
+      "slug": "shoulder-bags",
+      "parent": 22,
+      "image": "",
+      "is_active": true,
+      "attribute_definitions": [],
+      "created_at": "2026-07-01T07:16:10.107Z"
+    }
+  },
+  {
+    "model": "products.category",
+    "pk": 26,
+    "fields": {
+      "name": "Crossbody",
+      "slug": "crossbody",
+      "parent": 22,
+      "image": "",
+      "is_active": true,
+      "attribute_definitions": [],
+      "created_at": "2026-07-01T07:16:10.118Z"
+    }
+  },
+  {
+    "model": "products.category",
+    "pk": 27,
+    "fields": {
+      "name": "Backpacks",
+      "slug": "backpacks",
+      "parent": 22,
+      "image": "",
+      "is_active": true,
+      "attribute_definitions": [],
+      "created_at": "2026-07-01T07:16:10.129Z"
+    }
+  },
+  {
+    "model": "products.category",
+    "pk": 28,
+    "fields": {
+      "name": "Suits",
+      "slug": "suits",
+      "parent": null,
+      "image": "",
+      "is_active": true,
+      "attribute_definitions": [
+        {
+          "key": "sizes",
+          "label": "Size",
+          "type": "select_multiple",
+          "options": [
+            "S",
+            "M",
+            "L",
+            "XL",
+            "2XL",
+            "3XL"
+          ]
+        },
+        {
+          "key": "fabric",
+          "label": "Fabric",
+          "type": "select",
+          "options": [
+            "Cotton",
+            "Lawn",
+            "Silk",
+            "Chiffon",
+            "Velvet",
+            "Linen",
+            "Net",
+            "Organza",
+            "Jacquard"
+          ]
+        },
+        {
+          "key": "stitching",
+          "label": "Stitching",
+          "type": "select",
+          "options": [
+            "Stitched",
+            "Unstitched",
+            "Semi-Stitched"
+          ]
+        }
+      ],
+      "created_at": "2026-07-01T07:16:10.140Z"
+    }
+  },
+  {
+    "model": "products.category",
+    "pk": 29,
+    "fields": {
+      "name": "Stitched Suits",
+      "slug": "stitched-suits",
+      "parent": 28,
+      "image": "",
+      "is_active": true,
+      "attribute_definitions": [],
+      "created_at": "2026-07-01T07:16:10.151Z"
+    }
+  },
+  {
+    "model": "products.category",
+    "pk": 30,
+    "fields": {
+      "name": "Unstitched Suits",
+      "slug": "unstitched-suits",
+      "parent": 28,
+      "image": "",
+      "is_active": true,
+      "attribute_definitions": [],
+      "created_at": "2026-07-01T07:16:10.161Z"
+    }
+  },
+  {
+    "model": "products.category",
+    "pk": 31,
+    "fields": {
+      "name": "Party Wear",
+      "slug": "party-wear-suits",
+      "parent": 28,
+      "image": "",
+      "is_active": true,
+      "attribute_definitions": [],
+      "created_at": "2026-07-01T07:16:10.172Z"
+    }
+  },
+  {
+    "model": "products.category",
+    "pk": 32,
+    "fields": {
+      "name": "Casual Suits",
+      "slug": "casual-suits",
+      "parent": 28,
+      "image": "",
+      "is_active": true,
+      "attribute_definitions": [],
+      "created_at": "2026-07-01T07:16:10.183Z"
+    }
+  },
+  {
+    "model": "products.category",
+    "pk": 33,
+    "fields": {
+      "name": "Shalwar Kameez",
+      "slug": "shalwar-kameez",
+      "parent": null,
+      "image": "",
+      "is_active": true,
+      "attribute_definitions": [
+        {
+          "key": "sizes",
+          "label": "Size",
+          "type": "select_multiple",
+          "options": [
+            "S",
+            "M",
+            "L",
+            "XL",
+            "2XL",
+            "3XL"
+          ]
+        },
+        {
+          "key": "fabric",
+          "label": "Fabric",
+          "type": "select",
+          "options": [
+            "Cotton",
+            "Lawn",
+            "Silk",
+            "Chiffon",
+            "Velvet",
+            "Linen",
+            "Net",
+            "Organza",
+            "Jacquard"
+          ]
+        },
+        {
+          "key": "stitching",
+          "label": "Stitching",
+          "type": "select",
+          "options": [
+            "Stitched",
+            "Unstitched",
+            "Semi-Stitched"
+          ]
+        }
+      ],
+      "created_at": "2026-07-01T07:16:10.193Z"
+    }
+  },
+  {
+    "model": "products.category",
+    "pk": 34,
+    "fields": {
+      "name": "Casual Shalwar Kameez",
+      "slug": "casual-shalwar-kameez",
+      "parent": 33,
+      "image": "",
+      "is_active": true,
+      "attribute_definitions": [],
+      "created_at": "2026-07-01T07:16:10.204Z"
+    }
+  },
+  {
+    "model": "products.category",
+    "pk": 35,
+    "fields": {
+      "name": "Formal Shalwar Kameez",
+      "slug": "formal-shalwar-kameez",
+      "parent": 33,
+      "image": "",
+      "is_active": true,
+      "attribute_definitions": [],
+      "created_at": "2026-07-01T07:16:10.215Z"
+    }
+  },
+  {
+    "model": "products.category",
+    "pk": 36,
+    "fields": {
+      "name": "Kurta Shalwar",
+      "slug": "kurta-shalwar",
+      "parent": null,
+      "image": "",
+      "is_active": true,
+      "attribute_definitions": [
+        {
+          "key": "sizes",
+          "label": "Size",
+          "type": "select_multiple",
+          "options": [
+            "S",
+            "M",
+            "L",
+            "XL",
+            "2XL",
+            "3XL"
+          ]
+        },
+        {
+          "key": "fabric",
+          "label": "Fabric",
+          "type": "select",
+          "options": [
+            "Cotton",
+            "Lawn",
+            "Silk",
+            "Chiffon",
+            "Velvet",
+            "Linen",
+            "Net",
+            "Organza",
+            "Jacquard"
+          ]
+        },
+        {
+          "key": "stitching",
+          "label": "Stitching",
+          "type": "select",
+          "options": [
+            "Stitched",
+            "Unstitched",
+            "Semi-Stitched"
+          ]
+        }
+      ],
+      "created_at": "2026-07-01T07:16:10.231Z"
+    }
+  },
+  {
+    "model": "products.category",
+    "pk": 37,
+    "fields": {
+      "name": "Cotton Kurta",
+      "slug": "cotton-kurta",
+      "parent": 36,
+      "image": "",
+      "is_active": true,
+      "attribute_definitions": [],
+      "created_at": "2026-07-01T07:16:10.242Z"
+    }
+  },
+  {
+    "model": "products.category",
+    "pk": 38,
+    "fields": {
+      "name": "Lawn Kurta",
+      "slug": "lawn-kurta",
+      "parent": 36,
+      "image": "",
+      "is_active": true,
+      "attribute_definitions": [],
+      "created_at": "2026-07-01T07:16:10.253Z"
+    }
+  },
+  {
+    "model": "products.category",
+    "pk": 39,
+    "fields": {
+      "name": "Embroidered Kurta",
+      "slug": "embroidered-kurta",
+      "parent": 36,
+      "image": "",
+      "is_active": true,
+      "attribute_definitions": [],
+      "created_at": "2026-07-01T07:16:10.263Z"
+    }
+  },
+  {
+    "model": "products.category",
+    "pk": 40,
+    "fields": {
+      "name": "Jewelry",
+      "slug": "jewelry",
+      "parent": null,
+      "image": "",
+      "is_active": true,
+      "attribute_definitions": [
+        {
+          "key": "material",
+          "label": "Material",
+          "type": "select",
+          "options": [
+            "Gold",
+            "Silver",
+            "Gold Plated",
+            "Silver Plated",
+            "Artificial",
+            "Kundan",
+            "Polki",
+            "Stone",
+            "Bridal"
+          ]
+        },
+        {
+          "key": "weight",
+          "label": "Weight",
+          "type": "text",
+          "placeholder": "e.g. 10g"
+        }
+      ],
+      "created_at": "2026-07-01T07:16:10.274Z"
+    }
+  },
+  {
+    "model": "products.category",
+    "pk": 41,
+    "fields": {
+      "name": "Necklaces",
+      "slug": "necklaces",
+      "parent": 40,
+      "image": "",
+      "is_active": true,
+      "attribute_definitions": [],
+      "created_at": "2026-07-01T07:16:10.284Z"
+    }
+  },
+  {
+    "model": "products.category",
+    "pk": 42,
+    "fields": {
+      "name": "Earrings",
+      "slug": "earrings",
+      "parent": 40,
+      "image": "",
+      "is_active": true,
+      "attribute_definitions": [],
+      "created_at": "2026-07-01T07:16:10.296Z"
+    }
+  },
+  {
+    "model": "products.category",
+    "pk": 43,
+    "fields": {
+      "name": "Rings",
+      "slug": "rings",
+      "parent": 40,
+      "image": "",
+      "is_active": true,
+      "attribute_definitions": [],
+      "created_at": "2026-07-01T07:16:10.307Z"
+    }
+  },
+  {
+    "model": "products.category",
+    "pk": 44,
+    "fields": {
+      "name": "Bracelets",
+      "slug": "bracelets",
+      "parent": 40,
+      "image": "",
+      "is_active": true,
+      "attribute_definitions": [],
+      "created_at": "2026-07-01T07:16:10.318Z"
+    }
+  },
+  {
+    "model": "products.category",
+    "pk": 45,
+    "fields": {
+      "name": "Maang Tikka",
+      "slug": "maang-tikka",
+      "parent": 40,
+      "image": "",
+      "is_active": true,
+      "attribute_definitions": [],
+      "created_at": "2026-07-01T07:16:10.329Z"
+    }
+  },
+  {
+    "model": "products.category",
+    "pk": 46,
+    "fields": {
+      "name": "Makeup",
+      "slug": "makeup",
+      "parent": null,
+      "image": "",
+      "is_active": true,
+      "attribute_definitions": [
+        {
+          "key": "shade",
+          "label": "Shade/Color",
+          "type": "text",
+          "placeholder": "e.g. Ruby Red"
+        },
+        {
+          "key": "volume",
+          "label": "Volume/Size",
+          "type": "text",
+          "placeholder": "e.g. 50ml, 10g"
+        }
+      ],
+      "created_at": "2026-07-01T07:16:10.340Z"
+    }
+  },
+  {
+    "model": "products.category",
+    "pk": 47,
+    "fields": {
+      "name": "Lipstick",
+      "slug": "lipstick",
+      "parent": 46,
+      "image": "",
+      "is_active": true,
+      "attribute_definitions": [],
+      "created_at": "2026-07-01T07:16:10.350Z"
+    }
+  },
+  {
+    "model": "products.category",
+    "pk": 48,
+    "fields": {
+      "name": "Foundation",
+      "slug": "foundation",
+      "parent": 46,
+      "image": "",
+      "is_active": true,
+      "attribute_definitions": [],
+      "created_at": "2026-07-01T07:16:10.361Z"
+    }
+  },
+  {
+    "model": "products.category",
+    "pk": 49,
+    "fields": {
+      "name": "Eyeshadow",
+      "slug": "eyeshadow",
+      "parent": 46,
+      "image": "",
+      "is_active": true,
+      "attribute_definitions": [],
+      "created_at": "2026-07-01T07:16:10.372Z"
+    }
+  },
+  {
+    "model": "products.category",
+    "pk": 50,
+    "fields": {
+      "name": "Nail Polish",
+      "slug": "nail-polish",
+      "parent": 46,
+      "image": "",
+      "is_active": true,
+      "attribute_definitions": [],
+      "created_at": "2026-07-01T07:16:10.383Z"
+    }
+  },
+  {
+    "model": "products.category",
+    "pk": 51,
+    "fields": {
+      "name": "Skincare",
+      "slug": "skincare",
+      "parent": 46,
+      "image": "",
+      "is_active": true,
+      "attribute_definitions": [],
+      "created_at": "2026-07-01T07:16:10.393Z"
+    }
+  },
+  {
+    "model": "products.category",
+    "pk": 52,
+    "fields": {
+      "name": "Perfumes",
+      "slug": "perfumes",
+      "parent": null,
+      "image": "",
+      "is_active": true,
+      "attribute_definitions": [
+        {
+          "key": "volume",
+          "label": "Volume",
+          "type": "select",
+          "options": [
+            "15ml",
+            "30ml",
+            "50ml",
+            "75ml",
+            "100ml",
+            "125ml"
+          ]
+        },
+        {
+          "key": "fragrance_type",
+          "label": "Type",
+          "type": "select",
+          "options": [
+            "Eau de Parfum",
+            "Eau de Toilette",
+            "Attar",
+            "Body Spray",
+            "Roll-on",
+            "Perfume Oil"
+          ]
+        }
+      ],
+      "created_at": "2026-07-01T07:16:10.404Z"
+    }
+  },
+  {
+    "model": "products.category",
+    "pk": 53,
+    "fields": {
+      "name": "Women Perfumes",
+      "slug": "women-perfumes",
+      "parent": 52,
+      "image": "",
+      "is_active": true,
+      "attribute_definitions": [],
+      "created_at": "2026-07-01T07:16:10.415Z"
+    }
+  },
+  {
+    "model": "products.category",
+    "pk": 54,
+    "fields": {
+      "name": "Unisex Perfumes",
+      "slug": "unisex-perfumes",
+      "parent": 52,
+      "image": "",
+      "is_active": true,
+      "attribute_definitions": [],
+      "created_at": "2026-07-01T07:16:10.426Z"
+    }
+  },
+  {
+    "model": "products.category",
+    "pk": 55,
+    "fields": {
+      "name": "Attars",
+      "slug": "attars",
+      "parent": 52,
+      "image": "",
+      "is_active": true,
+      "attribute_definitions": [],
+      "created_at": "2026-07-01T07:16:10.437Z"
+    }
+  },
+  {
+    "model": "products.category",
+    "pk": 56,
+    "fields": {
+      "name": "Body Sprays",
+      "slug": "body-sprays",
+      "parent": 52,
+      "image": "",
+      "is_active": true,
+      "attribute_definitions": [],
+      "created_at": "2026-07-01T07:16:10.448Z"
+    }
+  },
+  {
+    "model": "products.category",
+    "pk": 57,
+    "fields": {
+      "name": "Accessories",
+      "slug": "accessories",
+      "parent": null,
+      "image": "",
+      "is_active": true,
+      "attribute_definitions": [
+        {
+          "key": "material",
+          "label": "Material",
+          "type": "select",
+          "options": [
+            "Fabric",
+            "Metal",
+            "Leather",
+            "Plastic",
+            "Gold Plated",
+            "Silver",
+            "Beaded",
+            "Stone"
+          ]
+        },
+        {
+          "key": "size",
+          "label": "Size",
+          "type": "select",
+          "options": [
+            "One Size",
+            "S",
+            "M",
+            "L",
+            "XL"
+          ]
+        }
+      ],
+      "created_at": "2026-07-01T07:16:10.458Z"
+    }
+  },
+  {
+    "model": "products.category",
+    "pk": 58,
+    "fields": {
+      "name": "Scarves & Dupattas",
+      "slug": "scarves-dupattas",
+      "parent": 57,
+      "image": "",
+      "is_active": true,
+      "attribute_definitions": [],
+      "created_at": "2026-07-01T07:16:10.469Z"
+    }
+  },
+  {
+    "model": "products.category",
+    "pk": 59,
+    "fields": {
+      "name": "Belts",
+      "slug": "belts",
+      "parent": 57,
+      "image": "",
+      "is_active": true,
+      "attribute_definitions": [],
+      "created_at": "2026-07-01T07:16:10.480Z"
+    }
+  },
+  {
+    "model": "products.category",
+    "pk": 60,
+    "fields": {
+      "name": "Sunglasses",
+      "slug": "sunglasses",
+      "parent": 57,
+      "image": "",
+      "is_active": true,
+      "attribute_definitions": [],
+      "created_at": "2026-07-01T07:16:10.491Z"
+    }
+  },
+  {
+    "model": "products.category",
+    "pk": 61,
+    "fields": {
+      "name": "Watches",
+      "slug": "watches",
+      "parent": 57,
+      "image": "",
+      "is_active": true,
+      "attribute_definitions": [],
+      "created_at": "2026-07-01T07:16:10.501Z"
+    }
+  },
+  {
+    "model": "products.category",
+    "pk": 62,
+    "fields": {
+      "name": "Hair Accessories",
+      "slug": "hair-accessories",
+      "parent": 57,
+      "image": "",
+      "is_active": true,
+      "attribute_definitions": [],
+      "created_at": "2026-07-01T07:16:10.511Z"
+    }
+  },
+  {
+    "model": "products.category",
+    "pk": 63,
+    "fields": {
+      "name": "Heel",
+      "slug": "high-heels",
+      "parent": 11,
+      "image": "categories/WhatsApp_Image_2026-07-01_at_12.26.05_AM.jpeg",
+      "is_active": true,
+      "attribute_definitions": [],
+      "created_at": "2026-07-01T07:29:24.309Z"
+    }
+  },
+  {
+    "model": "products.category",
+    "pk": 64,
+    "fields": {
+      "name": "Heels",
+      "slug": "heels",
+      "parent": null,
+      "image": "",
+      "is_active": true,
+      "attribute_definitions": [
+        {
+          "key": "sizes",
+          "label": "Shoe Size",
+          "type": "select_multiple",
+          "options": [
+            "35",
+            "36",
+            "37",
+            "38",
+            "39",
+            "40",
+            "41",
+            "42"
+          ]
+        },
+        {
+          "key": "heel_type",
+          "label": "Heel Type",
+          "type": "select",
+          "options": [
+            "Stiletto",
+            "Block",
+            "Wedge",
+            "Kitten",
+            "Platform",
+            "Cone",
+            "Flat",
+            "Sandal",
+            "Boot"
+          ]
+        },
+        {
+          "key": "heel_height",
+          "label": "Heel Height",
+          "type": "text",
+          "placeholder": "e.g. 10 cm"
+        }
+      ],
+      "created_at": "2026-07-01T07:33:52.523Z"
+    }
+  },
+  {
+    "model": "products.category",
+    "pk": 65,
+    "fields": {
+      "name": "Stiletto",
+      "slug": "stiletto",
+      "parent": 64,
+      "image": "",
+      "is_active": true,
+      "attribute_definitions": [],
+      "created_at": "2026-07-01T07:33:52.535Z"
+    }
+  },
+  {
+    "model": "products.category",
+    "pk": 66,
+    "fields": {
+      "name": "Block Heel",
+      "slug": "block-heel",
+      "parent": 64,
+      "image": "",
+      "is_active": true,
+      "attribute_definitions": [],
+      "created_at": "2026-07-01T07:33:52.546Z"
+    }
+  },
+  {
+    "model": "products.category",
+    "pk": 67,
+    "fields": {
+      "name": "Wedge",
+      "slug": "wedge",
+      "parent": 64,
+      "image": "",
+      "is_active": true,
+      "attribute_definitions": [],
+      "created_at": "2026-07-01T07:33:52.556Z"
+    }
+  },
+  {
+    "model": "products.category",
+    "pk": 68,
+    "fields": {
+      "name": "Kitten Heel",
+      "slug": "kitten-heel",
+      "parent": 64,
+      "image": "",
+      "is_active": true,
+      "attribute_definitions": [],
+      "created_at": "2026-07-01T07:33:52.567Z"
+    }
+  },
+  {
+    "model": "products.category",
+    "pk": 69,
+    "fields": {
+      "name": "Platform",
+      "slug": "platform",
+      "parent": 64,
+      "image": "",
+      "is_active": true,
+      "attribute_definitions": [],
+      "created_at": "2026-07-01T07:33:52.579Z"
+    }
+  },
+  {
+    "model": "products.category",
+    "pk": 70,
+    "fields": {
+      "name": "Cone Heel",
+      "slug": "cone-heel",
+      "parent": 64,
+      "image": "",
+      "is_active": true,
+      "attribute_definitions": [],
+      "created_at": "2026-07-01T07:33:52.589Z"
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 1,
+    "fields": {
+      "name": "Cheery Heel",
+      "slug": "cherry-heel",
+      "category": 63,
+      "description": "Color: Cherry Red / Burgundy\r\nStyle: Slingback Heels\r\nToe Shape: Pointed Toe\r\nHeel Type: Kitten Heel / Slim Heel\r\nOccasion: Party, Formal, Casual Chic, Office, Evening Wear",
+      "short_description": "Elevate your style with these elegant Cherry Red Patent Slingback Heels. Featuring a sleek pointed-toe design, glossy patent finish, delicate bow detail, and comfortable mid-height heel, these heels are perfect for parties, dinners, weddings, office wear, and special occasions. A timeless statement",
+      "price": "7000.00",
+      "discount_percent": 0,
+      "gender": "women",
+      "heel_type": "kitten",
+      "heel_height": "20",
+      "sizes": [
+        "37",
+        "38",
+        "39",
+        "40"
+      ],
+      "colors": [
+        {
+          "name": "Cherry Red",
+          "hex": "#D2042D"
+        },
+        {
+          "name": "Burgundy",
+          "hex": "#800020"
+        }
+      ],
+      "attributes": {},
+      "stock_count": 20,
+      "is_in_stock": true,
+      "is_featured": true,
+      "is_coming_soon": false,
+      "is_active": true,
+      "meta_title": "Burgundy Patent Bow Slingback Heels for Women | Shop Online",
+      "meta_description": "Elevate your evening look with our glossy burgundy patent slingback heels. Featuring a sophisticated pointed toe, chic front bow detail, and a comfortable mid-stiletto heel. Free delivery available!",
+      "created_at": "2026-07-01T06:59:53.638Z",
+      "updated_at": "2026-07-01T07:30:23.053Z"
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 2,
+    "fields": {
+      "name": "Bangles",
+      "slug": "bangles",
+      "category": 19,
+      "description": "Material: High-quality, premium matte/glitter metal bangles.Box Includes: 10 Dozen (120 pieces) multi-color dotted metal bangles + 1 Pair Heavy Pearl Latkan/Jhumka Karas + Thin Pearl Bangles.Colors: Vibrant multicolor mix including Pink, Red, Black, Blue, Yellow, Turquoise, White, and Green.Occasion: Perfect for Eid, Weddings, Mehndi, Mayon, or casual festive stacking.Sizes Available: 2.4 (Small), 2.6 (Medium), 2.8 (Large).",
+      "short_description": "Apnay festive look ko char-chand lagayein! \u2728Yeh exclusive Multicolor Metal Bangles Combo Box un khwateen ke liye design kiya gaya hai jo har dress ke sath matching choriyan pehnna pasand karti hain. Is aik premium box mein aap ko milte hain 10 se zayd khoobsurat rangon ka collection, taake aap ko ha",
+      "price": "4799.99",
+      "discount_percent": 0,
+      "gender": "women",
+      "heel_type": "",
+      "heel_height": "",
+      "sizes": [
+        "2.0",
+        "2.25",
+        "2.5"
+      ],
+      "colors": [
+        {
+          "name": "Black",
+          "hex": "#000000"
+        },
+        {
+          "name": "Hot Pink",
+          "hex": "#FF1493"
+        },
+        {
+          "name": "Red",
+          "hex": "#D2042D"
+        },
+        {
+          "name": "Royal Blue",
+          "hex": "#4169E1"
+        },
+        {
+          "name": "Yellow",
+          "hex": "#FFD700"
+        },
+        {
+          "name": "Turquoise",
+          "hex": "#40E0D0"
+        },
+        {
+          "name": "White",
+          "hex": "#FFFFFF"
+        },
+        {
+          "name": "Dark Green",
+          "hex": "#006400"
+        },
+        {
+          "name": "Light Pink",
+          "hex": "#FFB6C1"
+        },
+        {
+          "name": "Maroon",
+          "hex": "#800000"
+        },
+        {
+          "name": "Purple",
+          "hex": "#800080"
+        },
+        {
+          "name": "Orange",
+          "hex": "#FFA500"
+        },
+        {
+          "name": "Gold (for Karas)",
+          "hex": "#FFD700"
+        },
+        {
+          "name": "Pearl White",
+          "hex": "#FDEEF4"
+        }
+      ],
+      "attributes": {},
+      "stock_count": 20,
+      "is_in_stock": true,
+      "is_featured": true,
+      "is_coming_soon": false,
+      "is_active": true,
+      "meta_title": "Premium Multicolor Metal Bangles Combo Box Online | Shop Now",
+      "meta_description": "120+ pieces of vibrant multicolor metal bangles with heavy pearl latkan karas. Perfect for Eid, Mehndi, and weddings. Order your festive bangle box today!",
+      "created_at": "2026-07-01T07:49:20.478Z",
+      "updated_at": "2026-07-01T08:05:41.623Z"
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 3,
+    "fields": {
+      "name": "Premium Velvet Mini Bangle Box Set (With Pearl Latkan & Kundan Karas)",
+      "slug": "premium-velvet-mini-bangle-box-set-with-pearl-latkan-kundan-karas",
+      "category": 19,
+      "description": "Classy look, minimal effort! \u2728Yeh exclusive Velvet Mini Box un logon ke liye perfect hai jo heavy multicolor ke bajaye elegant aur sophisticated look pasand karte hain. Is set mein aap ko milti hain soft grey aur jet black velvet ki choriyan, jin ka combination kabhi fasion se bahar nahi hota.Sath mein diye gaye Heavy Pearl Latkan Karas aur square-cut Kundan Karas is poore set ko aik mehndi, barat ya kisi bhi festive event ke liye perfect banatay hain. Velvet ka texture intehai soft hai jo pehn'nay mein bht comfortable lagta hai.",
+      "short_description": "Box Content: Grey & Black premium velvet bangles mix + 1 Pair Heavy Pearl Latkan/Jhumka Karas + Kundan square-cut side karas + Thin pearl lines.Material: High-grade soft velvet, durable base metal, stones, and faux pearls.Vibe: Classic, elegant, monochrome style that looks extremely graceful with fo",
+      "price": "1200.00",
+      "discount_percent": 0,
+      "gender": "women",
+      "heel_type": "",
+      "heel_height": "",
+      "sizes": [
+        "2.2",
+        "2.4",
+        "2.6",
+        "2.8"
+      ],
+      "colors": [
+        {
+          "name": "Grey Velvet",
+          "hex": "#808080"
+        },
+        {
+          "name": "Black Velvet",
+          "hex": "#000000"
+        },
+        {
+          "name": "Pearl White",
+          "hex": "#FDEEF4"
+        },
+        {
+          "name": "Antique Gold",
+          "hex": "#B59410"
+        }
+      ],
+      "attributes": {
+        "sizes": [
+          "2.2",
+          "2.4",
+          "2.6",
+          "2.8"
+        ],
+        "bangle_type": "Velvet Mix Set",
+        "material": [
+          "Velvet",
+          "Metal",
+          "Kundan",
+          "Pearl"
+        ]
+      },
+      "stock_count": 45,
+      "is_in_stock": true,
+      "is_featured": true,
+      "is_coming_soon": false,
+      "is_active": true,
+      "meta_title": "Velvet Mini Bangle Box Set with Pearl & Kundan Karas",
+      "meta_description": "Elevate your look with our Velvet Mini Box. Featuring classic black and grey velvet bangles paired with heavy pearl latkan and kundan karas. Shop online!",
+      "created_at": "2026-07-01T08:18:11.359Z",
+      "updated_at": "2026-07-01T08:24:05.034Z"
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 4,
+    "fields": {
+      "name": "Festive Multicolor Velvet Bangles Set",
+      "slug": "festive-multicolor-velvet-bangles-set",
+      "category": 19,
+      "description": "Box Content: Multi-shaded premium velvet bangles + 1 Pair Heavy Pearl Cluster Karas + Antique Gold Kundan side karas.Colors: Royal Blue, Mustard Yellow, Deep Red, Maroon, Emerald Green, and Turquoise Blue.Material: Soft micro-velvet fabric base, brass alloy metal, fine pearls, and kundan stones.",
+      "short_description": "Apne har traditional outfit ko dain aik perfect match! \u2728Yeh gorgeous Multicolor Velvet Bangle Box khas taur par un khwateen ke liye hai jo hamesha matching ke jhanjhat se bachna chahti hain. Is aik set mein aap ko milte hain festive season ke tamam trending aur royal rang (jaise Red, Yellow, Blue, a",
+      "price": "4500.00",
+      "discount_percent": 0,
+      "gender": "women",
+      "heel_type": "",
+      "heel_height": "",
+      "sizes": [
+        "2.2",
+        "2.4",
+        "2.6",
+        "2.8"
+      ],
+      "colors": [
+        {
+          "name": "Royal Blue",
+          "hex": "#002366"
+        },
+        {
+          "name": "Mustard Yellow",
+          "hex": "#FFDB58"
+        },
+        {
+          "name": "Crimson Red",
+          "hex": "#DC143C"
+        },
+        {
+          "name": "Baby Pink",
+          "hex": "#FFC0CB"
+        },
+        {
+          "name": "Deep Maroon",
+          "hex": "#800020"
+        },
+        {
+          "name": "Turquoise Blue",
+          "hex": "#00CED1"
+        },
+        {
+          "name": "Emerald Green",
+          "hex": "#50C878"
+        },
+        {
+          "name": "Pearl White",
+          "hex": "#FDEEF4"
+        },
+        {
+          "name": "Antique Gold",
+          "hex": "#B59410"
+        }
+      ],
+      "attributes": {
+        "sizes": [
+          "2.2",
+          "2.4",
+          "2.6",
+          "2.8"
+        ],
+        "bangle_type": "Multicolor Velvet Set",
+        "material": [
+          "Velvet",
+          "Metal",
+          "Kundan",
+          "Pearls"
+        ]
+      },
+      "stock_count": 0,
+      "is_in_stock": true,
+      "is_featured": true,
+      "is_coming_soon": false,
+      "is_active": true,
+      "meta_title": "Multicolor Velvet Bangles Set with Kundan Karas | Buy Online",
+      "meta_description": "Shop our premium multicolor velvet bangles combo. Includes vibrant shades of red, yellow, and blue paired with heavy pearl and kundan karas for weddings.",
+      "created_at": "2026-07-01T08:28:45.932Z",
+      "updated_at": "2026-07-01T08:28:45.932Z"
+    }
+  },
+  {
+    "model": "products.productimage",
+    "pk": 1,
+    "fields": {
+      "product": 1,
+      "image": "https://res.cloudinary.com/fphi64g1/image/upload/v1782901538/products/nrnpbbjmvnkuulae7rpz.jpg",
+      "is_primary": true,
+      "alt_text": "Cheery Heels",
+      "sort_order": 0
+    }
+  },
+  {
+    "model": "products.productimage",
+    "pk": 2,
+    "fields": {
+      "product": 1,
+      "image": "https://res.cloudinary.com/fphi64g1/image/upload/v1782901544/products/yjxpsccjizjdeplitha8.jpg",
+      "is_primary": false,
+      "alt_text": "Cheery Heels",
+      "sort_order": 1
+    }
+  },
+  {
+    "model": "products.productimage",
+    "pk": 3,
+    "fields": {
+      "product": 2,
+      "image": "https://res.cloudinary.com/fphi64g1/image/upload/v1782901553/products/rdkl6rml93rqkbwq1bxq.jpg",
+      "is_primary": true,
+      "alt_text": "Bangles-Combo-ox",
+      "sort_order": 0
+    }
+  },
+  {
+    "model": "products.productimage",
+    "pk": 4,
+    "fields": {
+      "product": 3,
+      "image": "https://res.cloudinary.com/fphi64g1/image/upload/v1782901587/products/wgy25tu9gahfy4c8qxik.jpg",
+      "is_primary": true,
+      "alt_text": "Premium-Velvel-mini-bangles-set",
+      "sort_order": 0
+    }
+  },
+  {
+    "model": "products.productimage",
+    "pk": 5,
+    "fields": {
+      "product": 4,
+      "image": "https://res.cloudinary.com/fphi64g1/image/upload/v1782901565/products/lqifndapo7pmpgbwunfr.jpg",
+      "is_primary": false,
+      "alt_text": "Festivle Multicolor Bangles",
+      "sort_order": 0
+    }
+  }
+]
