@@ -1423,7 +1423,7 @@
     "pk": 1,
     "fields": {
       "product": 1,
-      "image": "products/nrnpbbjmvnkuulae7rpz",
+      "image": "https://res.cloudinary.com/fphi64g1/image/upload/v1782901538/products/nrnpbbjmvnkuulae7rpz.jpg",
       "is_primary": true,
       "alt_text": "Cheery Heels",
       "sort_order": 0
@@ -1434,7 +1434,7 @@
     "pk": 2,
     "fields": {
       "product": 1,
-      "image": "products/yjxpsccjizjdeplitha8",
+      "image": "https://res.cloudinary.com/fphi64g1/image/upload/v1782901544/products/yjxpsccjizjdeplitha8.jpg",
       "is_primary": false,
       "alt_text": "Cheery Heels",
       "sort_order": 1
@@ -1445,7 +1445,7 @@
     "pk": 3,
     "fields": {
       "product": 2,
-      "image": "products/rdkl6rml93rqkbwq1bxq",
+      "image": "https://res.cloudinary.com/fphi64g1/image/upload/v1782901553/products/rdkl6rml93rqkbwq1bxq.jpg",
       "is_primary": true,
       "alt_text": "Bangles-Combo-ox",
       "sort_order": 0
@@ -1456,7 +1456,7 @@
     "pk": 4,
     "fields": {
       "product": 3,
-      "image": "products/wgy25tu9gahfy4c8qxik",
+      "image": "https://res.cloudinary.com/fphi64g1/image/upload/v1782901587/products/wgy25tu9gahfy4c8qxik.jpg",
       "is_primary": true,
       "alt_text": "Premium-Velvel-mini-bangles-set",
       "sort_order": 0
@@ -1467,7 +1467,7 @@
     "pk": 5,
     "fields": {
       "product": 4,
-      "image": "products/lqifndapo7pmpgbwunfr",
+      "image": "https://res.cloudinary.com/fphi64g1/image/upload/v1782901565/products/lqifndapo7pmpgbwunfr.jpg",
       "is_primary": false,
       "alt_text": "Festivle Multicolor Bangles",
       "sort_order": 0
