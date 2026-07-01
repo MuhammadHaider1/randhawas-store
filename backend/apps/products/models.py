@@ -111,10 +111,17 @@ class ProductImage(models.Model):
 
     @property
     def image_url(self):
-        name = self.image.name
-        if name and not name.startswith('http://') and not name.startswith('https://') and not name.startswith('/') and 'cloudinary' not in str(name):
-            return f'https://res.cloudinary.com/fphi64g1/image/upload/{name}'
-        return self.image.url
+        try:
+            name = self.image.name
+            if not name:
+                return None
+            if self.image.storage.exists(name):
+                return self.image.url
+            if not name.startswith('http') and 'cloudinary' not in name.lower():
+                return f'https://res.cloudinary.com/fphi64g1/image/upload/{name}'
+            return self.image.url
+        except Exception:
+            return None
 
 class Review(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='reviews')

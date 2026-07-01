@@ -34,7 +34,9 @@ class ProductListSerializer(serializers.ModelSerializer):
         img = obj.images.filter(is_primary=True).first()
         if not img:
             img = obj.images.first()
-        return img.image_url if img else None
+        if img:
+            return img.image_url
+        return None
 
     sold_count = serializers.SerializerMethodField()
 
@@ -109,15 +111,12 @@ class CategorySerializer(serializers.ModelSerializer):
     def get_random_product_image(self, obj):
         if obj.parent is None:
             child_ids = obj.children.values_list('id', flat=True)
-            products = Product.objects.filter(category_id__in=list(child_ids) + [obj.id], is_active=True, images__isnull=False)
+            products = Product.objects.filter(category_id__in=list(child_ids) + [obj.id], is_active=True)
         else:
-            products = obj.products.filter(is_active=True, images__isnull=False)
-        product = products.order_by('?').first()
-        if product:
-            primary = product.images.filter(is_primary=True).first()
-            if primary:
-                return primary.image_url
-            first_img = product.images.first()
-            if first_img:
-                return first_img.image_url
+            products = obj.products.filter(is_active=True)
+        products = products.prefetch_related('images').order_by('?')[:5]
+        for product in products:
+            img = product.images.filter(is_primary=True).first() or product.images.first()
+            if img and img.image_url:
+                return img.image_url
         return None
