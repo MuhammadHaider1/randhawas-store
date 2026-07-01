@@ -187,13 +187,13 @@ export default function AdminOrders() {
                         'bg-gray-100 text-gray-600'
                       }`}>{selected.payment_status}</span>
                     </div>
-                    {selected.payment_receipt && (
+                    {selected.receipt_url && (
                       <div>
                         <p className="text-xs font-medium text-amber-700 mb-1 flex items-center gap-1">
                           <HiPhotograph size={14} /> Payment Receipt
                         </p>
-                        <a href={selected.payment_receipt} target="_blank" rel="noopener noreferrer">
-                          <img src={selected.payment_receipt} alt="Payment Receipt"
+                        <a href={selected.receipt_url} target="_blank" rel="noopener noreferrer">
+                          <img src={selected.receipt_url} alt="Payment Receipt"
                             className="max-h-40 rounded-lg border border-amber-300 cursor-pointer hover:opacity-90 transition-opacity" />
                         </a>
                       </div>

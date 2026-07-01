@@ -81,6 +81,7 @@ class AdminProductSerializer(serializers.ModelSerializer):
 
 class AdminOrderSerializer(serializers.ModelSerializer):
     items = OrderItemSerializer(many=True, read_only=True)
+    receipt_url = serializers.ReadOnlyField(source='receipt_url')
 
     class Meta:
         model = Order

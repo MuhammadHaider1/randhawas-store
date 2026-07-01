@@ -68,6 +68,19 @@ class Order(models.Model):
             self.order_id = 'RH-' + secrets.token_hex(4).upper()
         super().save(*args, **kwargs)
 
+    @property
+    def receipt_url(self):
+        if not self.payment_receipt:
+            return None
+        name = self.payment_receipt.name
+        if name and not name.startswith('http://') and not name.startswith('https://') and not name.startswith('/'):
+            from django.conf import settings
+            if hasattr(settings, 'CLOUDINARY_STORAGE'):
+                cloud_name = settings.CLOUDINARY_STORAGE.get('CLOUD_NAME')
+                if cloud_name and 'cloudinary' not in name:
+                    return f'https://res.cloudinary.com/{cloud_name}/image/upload/{name}'
+        return self.payment_receipt.url
+
 class OrderItem(models.Model):
     order = models.ForeignKey(Order, on_delete=models.CASCADE, related_name='items')
     product = models.ForeignKey(Product, on_delete=models.SET_NULL, null=True)
