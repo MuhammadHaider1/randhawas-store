@@ -71,7 +71,9 @@ export default function ProductDetail() {
       fd.append('rating', reviewRating)
       fd.append('comment', reviewComment)
       if (reviewImage) fd.append('image', reviewImage)
-      await api.post(`/products/${slug}/reviews/`, fd)
+      await api.post(`/products/${slug}/reviews/`, fd, {
+        headers: { 'Content-Type': 'multipart/form-data' },
+      })
       toast.success('Review submitted! Awaiting approval.')
       setReviewRating(0); setReviewName(''); setReviewComment(''); setReviewImage(null); setReviewPreview('')
     } catch {
