@@ -14,9 +14,12 @@ class ProductImageSerializer(serializers.ModelSerializer):
         return obj.image_url
 
 class ReviewSerializer(serializers.ModelSerializer):
+    product_name = serializers.CharField(source='product.name', read_only=True)
+
     class Meta:
         model = Review
-        fields = ['id', 'customer_name', 'rating', 'comment', 'image', 'created_at']
+        fields = ['id', 'product', 'product_name', 'customer_name', 'rating', 'comment', 'image', 'is_approved', 'created_at']
+        read_only_fields = ['product']
 
 class ProductListSerializer(serializers.ModelSerializer):
     primary_image = serializers.SerializerMethodField()

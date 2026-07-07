@@ -20,6 +20,7 @@ import DashboardHome from './pages/admin/DashboardHome'
 import AdminProducts from './pages/admin/AdminProducts'
 import AdminOrders from './pages/admin/AdminOrders'
 import AdminCustomers from './pages/admin/AdminCustomers'
+import AdminReviews from './pages/admin/AdminReviews'
 import ScrollToTop from './components/ui/ScrollToTop'
 import ErrorBoundary from './components/ui/ErrorBoundary'
 
@@ -59,6 +60,7 @@ export default function App() {
             <Route path="products" element={<AdminProducts />} />
             <Route path="orders" element={<AdminOrders />} />
             <Route path="customers" element={<AdminCustomers />} />
+            <Route path="reviews" element={<AdminReviews />} />
           </Route>
         </Routes>
       </ErrorBoundary>

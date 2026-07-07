@@ -13,4 +13,6 @@ urlpatterns = [
     path('categories/', views.CategoryListView.as_view(), name='dashboard-categories'),
     path('categories/<int:pk>/', views.CategoryDetailView.as_view(), name='dashboard-category-detail'),
     path('data/', views.DashboardDataView.as_view(), name='dashboard-data'),
+    path('reviews/', views.ReviewListView.as_view(), name='dashboard-reviews'),
+    path('reviews/<int:pk>/', views.ReviewDetailView.as_view(), name='dashboard-review-detail'),
 ]

@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { NavLink, Outlet, Navigate, useNavigate } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import { motion, AnimatePresence } from 'framer-motion'
-import { HiChartBar, HiCube, HiClipboardList, HiUsers, HiLogout, HiMenu, HiX, HiHome } from 'react-icons/hi'
+import { HiChartBar, HiCube, HiClipboardList, HiUsers, HiStar, HiLogout, HiMenu, HiX, HiHome } from 'react-icons/hi'
 import { logout } from '../../store/authSlice'
 
 const navItems = [
@@ -10,6 +10,7 @@ const navItems = [
   { to: '/admin/products', label: 'Products', icon: HiCube },
   { to: '/admin/orders', label: 'Orders', icon: HiClipboardList },
   { to: '/admin/customers', label: 'Customers', icon: HiUsers },
+  { to: '/admin/reviews', label: 'Reviews', icon: HiStar },
 ]
 
 export default function AdminLayout() {

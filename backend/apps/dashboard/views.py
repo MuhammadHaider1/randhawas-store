@@ -3,9 +3,10 @@ from rest_framework.response import Response
 from rest_framework.parsers import MultiPartParser, FormParser, JSONParser
 from django.db.models import Sum, Count, Q
 from apps.orders.models import Order
-from apps.products.models import Product, Category, ProductImage, Color
+from apps.products.models import Product, Category, ProductImage, Color, Review
 from apps.accounts.models import User
 from apps.orders.serializers import OrderListSerializer, OrderSerializer, OrderStatusSerializer
+from apps.products.serializers import ReviewSerializer
 from .serializers import CustomerSerializer, AdminProductSerializer, CategorySerializer, AdminOrderSerializer, ColorSerializer
 
 class IsAdminUser(permissions.BasePermission):
@@ -155,3 +156,13 @@ class DashboardDataView(views.APIView):
             'products': AdminProductSerializer(products, many=True).data,
             'customers': CustomerSerializer(customers, many=True).data,
         })
+
+class ReviewListView(generics.ListAPIView):
+    queryset = Review.objects.all().select_related('product').order_by('-created_at')
+    serializer_class = ReviewSerializer
+    permission_classes = [permissions.IsAdminUser]
+
+class ReviewDetailView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Review.objects.all()
+    serializer_class = ReviewSerializer
+    permission_classes = [permissions.IsAdminUser]
