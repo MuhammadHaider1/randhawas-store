@@ -48,7 +48,6 @@ export default function ProductDetail() {
   const images = product.images || []
   const sizes = product.attributes?.sizes || product.sizes || []
   const handleAdd = () => {
-    if (sizes?.length && !selectedSize) { toast.error('Please select a size'); return }
     dispatch(addToCart({ product, size: selectedSize, color: selectedColor, quantity }))
     trackAddToCart({ id: product.id, name: product.name, price: finalPrice, quantity })
     toast.success('Added to cart!')

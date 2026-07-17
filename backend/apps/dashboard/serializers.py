@@ -51,6 +51,11 @@ class AdminProductSerializer(serializers.ModelSerializer):
         model = Product
         fields = '__all__'
         read_only_fields = ['created_at', 'updated_at']
+        extra_kwargs = {
+            'sizes': {'required': False, 'allow_null': True},
+            'colors': {'required': False, 'allow_null': True},
+            'attributes': {'required': False, 'allow_null': True},
+        }
 
     def get_primary_image(self, obj):
         img = obj.images.filter(is_primary=True).first()
