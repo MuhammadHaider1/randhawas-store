@@ -9,7 +9,7 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
           <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
             <h3 className="font-serif text-2xl text-white mb-4">
-              <span className="text-primary-400">Randa</span>haws
+              <span className="text-primary-400">RAND</span>HAWAS
             </h3>
             <p className="text-sm leading-relaxed">
               Premium women's fashion — from elegant heels and handbags to trendy suits, jewelry, and makeup. Designed for the confident, modern woman.
@@ -36,7 +36,7 @@ export default function Footer() {
       </div>
       <div className="border-t border-gray-700 py-6">
         <div className="max-w-7xl mx-auto px-4 flex flex-col md:flex-row items-center justify-between gap-4 text-sm text-gray-500">
-          <p>&copy; {new Date().getFullYear()} HR,S HUB. All rights reserved.</p>
+          <p>&copy; {new Date().getFullYear()} RANDHAWAS. All rights reserved.</p>
           <p className="flex items-center gap-1">Made with <HiHeart className="text-primary-500" /> for fashion lovers</p>
         </div>
       </div>
