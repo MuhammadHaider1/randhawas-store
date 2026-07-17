@@ -158,7 +158,7 @@ EMAIL_HOST_USER = config('EMAIL_HOST_USER', default='')
 EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD', default='')
 DEFAULT_FROM_EMAIL = config('DEFAULT_FROM_EMAIL', default='noreply@randahaws.com')
 
-ADMIN_EMAIL = config('ADMIN_EMAIL', default='admin@randahaws.com')
+ADMIN_EMAIL = config('ADMIN_EMAIL', default='hirarandhawa660@gmail.com')
 SITE_NAME = "HR,S HUB — Women's Fashion"
 
 TIKTOK_PIXEL_CODE = config('TIKTOK_PIXEL_CODE', default='D9D78N3C77U7PB56UFN0')
