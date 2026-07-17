@@ -136,6 +136,6 @@ class TikTokEventView(views.APIView):
         payload = request.data.get('payload', {})
         result = send_tiktok_event(event_name, payload, request)
 
-        if result and result.get('code') == 0:
-            return Response({'status': 'ok', 'result': result}, status=200)
-        return Response({'status': 'error', 'result': result}, status=200)
+        if result and result.get('status_code') == 200:
+            return Response({'status': 'ok', 'tiktok_response': result}, status=200)
+        return Response({'status': 'sent', 'tiktok_response': result}, status=200)

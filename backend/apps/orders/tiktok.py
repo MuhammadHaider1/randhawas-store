@@ -1,7 +1,8 @@
-import requests
+import time
 import json
 import hashlib
 import logging
+import requests
 from django.conf import settings
 
 logger = logging.getLogger(__name__)
@@ -21,31 +22,41 @@ def send_tiktok_event(event_name, payload, request=None):
         logger.warning('TikTok access token not configured')
         return None
 
-    pixel_code = settings.TIKTOK_PIXEL_CODE
+    event_id = payload.get('event_id', '') or f'{event_name}_{int(time.time() * 1000)}_{id(payload)}'
+    properties = payload.get('properties', {})
 
     context = {
-        'user_agent': request.META.get('HTTP_USER_AGENT', '') if request else '',
-        'ip': request.META.get('REMOTE_ADDR', '') if request else '',
-        'page': {
-            'url': request.build_absolute_uri() if request else '',
-        },
+        'user': {},
+        'page': {},
     }
 
-    if request and request.user.is_authenticated:
-        user = request.user
-        context['user'] = {
-            'email': _hash(user.email),
-            'phone': _hash(getattr(user, 'phone', '')),
-            'external_id': _hash(str(user.id)),
-        }
+    if request:
+        context['user_agent'] = request.META.get('HTTP_USER_AGENT', '')
+        context['ip'] = request.META.get('REMOTE_ADDR', '')
+        try:
+            context['page']['url'] = request.build_absolute_uri()
+        except Exception:
+            pass
+
+        if request.user.is_authenticated:
+            user_data = {}
+            if request.user.email:
+                user_data['email'] = _hash(request.user.email)
+            phone = getattr(request.user, 'phone', '') or ''
+            if phone:
+                user_data['phone'] = _hash(phone)
+            if request.user.pk:
+                user_data['external_id'] = _hash(str(request.user.pk))
+            context['user'] = user_data
 
     data = {
-        'pixel_code': pixel_code,
+        'pixel_code': settings.TIKTOK_PIXEL_CODE,
         'event': event_name,
-        'event_id': payload.get('event_id', ''),
-        'timestamp': payload.get('timestamp', ''),
+        'event_id': event_id,
+        'event_time': int(time.time()),
+        'action_source': 'web',
         'context': context,
-        'properties': payload.get('properties', {}),
+        'properties': properties,
     }
 
     test_code = settings.TIKTOK_TEST_EVENT_CODE
@@ -57,12 +68,19 @@ def send_tiktok_event(event_name, payload, request=None):
         'Content-Type': 'application/json',
     }
 
+    logger.info(f'TikTok payload: {json.dumps(data, indent=2)}')
+
     try:
         resp = requests.post(TIKTOK_API_URL, json=data, headers=headers, timeout=10)
-        resp.raise_for_status()
-        result = resp.json()
-        logger.info(f'TikTok event {event_name} sent: {result}')
-        return result
+        status = resp.status_code
+        try:
+            result = resp.json()
+        except Exception:
+            result = resp.text
+
+        logger.info(f'TikTok response [{status}]: {json.dumps(result, indent=2) if isinstance(result, dict) else result}')
+
+        return {'status_code': status, 'response': result}
     except requests.RequestException as e:
         logger.error(f'TikTok API error: {e}')
         return None
