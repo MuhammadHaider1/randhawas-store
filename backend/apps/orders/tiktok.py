@@ -1,3 +1,4 @@
+import os
 import time
 import json
 import hashlib
@@ -70,17 +71,29 @@ def send_tiktok_event(event_name, payload, request=None):
 
     logger.info(f'TikTok payload: {json.dumps(data, indent=2)}')
 
-    try:
-        resp = requests.post(TIKTOK_API_URL, json=data, headers=headers, timeout=10)
-        status = resp.status_code
+    def _try_send(proxy_opts):
+        s = requests.Session()
+        s.trust_env = False
+        return s.post(TIKTOK_API_URL, json=data, headers=headers, timeout=15, **proxy_opts)
+
+    strategies = [
+        {'proxies': {'http': '', 'https': ''}},
+        {},
+    ]
+
+    for strat in strategies:
         try:
-            result = resp.json()
-        except Exception:
-            result = resp.text
+            resp = _try_send(strat)
+            status = resp.status_code
+            try:
+                result = resp.json()
+            except Exception:
+                result = resp.text
+            logger.info(f'TikTok response [{status}]: {json.dumps(result, indent=2) if isinstance(result, dict) else result}')
+            return {'status_code': status, 'response': result}
+        except requests.RequestException as e:
+            logger.warning(f'TikTok attempt with {strat} failed: {e}')
+            continue
 
-        logger.info(f'TikTok response [{status}]: {json.dumps(result, indent=2) if isinstance(result, dict) else result}')
-
-        return {'status_code': status, 'response': result}
-    except requests.RequestException as e:
-        logger.error(f'TikTok API error: {e}')
-        return None
+    logger.error('All TikTok send attempts failed')
+    return None
