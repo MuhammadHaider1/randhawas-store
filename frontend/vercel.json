@@ -1,5 +1,6 @@
 {
   "rewrites": [
+    { "source": "/api/:path*", "destination": "https://Haider67.pythonanywhere.com/api/:path*" },
     { "source": "/sitemap.xml", "destination": "https://Haider67.pythonanywhere.com/sitemap.xml" },
     { "source": "/media/:path*", "destination": "https://Haider67.pythonanywhere.com/media/:path*" },
     { "source": "/(.*)", "destination": "/index.html" }
