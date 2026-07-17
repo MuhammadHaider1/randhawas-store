@@ -70,6 +70,7 @@ export default function DashboardHome() {
                   <th className="pb-3 font-medium">Amount</th>
                   <th className="pb-3 font-medium">Payment</th>
                   <th className="pb-3 font-medium">Status</th>
+                  <th className="pb-3 font-medium">Receipt</th>
                   <th className="pb-3 font-medium">Details</th>
                 </tr>
               </thead>
@@ -91,6 +92,16 @@ export default function DashboardHome() {
                         order.payment_status === 'verified' ? 'bg-emerald-50 text-emerald-700' :
                         'bg-gray-50 text-gray-700'
                       }`}>{order.payment_status}</span>
+                    </td>
+                    <td className="py-3">
+                      {order.payment_receipt ? (
+                        <img
+                          src={order.payment_receipt}
+                          alt="receipt"
+                          className="w-12 h-12 object-cover rounded-lg border cursor-pointer hover:opacity-80"
+                          onClick={() => setSelectedOrder(order)}
+                        />
+                      ) : <span className="text-xs text-gray-400">No receipt</span>}
                     </td>
                     <td className="py-3">
                       <button
@@ -156,6 +167,17 @@ export default function DashboardHome() {
                     <p className="text-gray-500">Total</p>
                     <p className="font-semibold text-lg text-primary-600">PKR {Number(selectedOrder.total).toLocaleString()}</p>
                   </div>
+                </div>
+
+                <div>
+                  <p className="text-sm text-gray-500 mb-2">Payment Receipt</p>
+                  {selectedOrder.payment_receipt ? (
+                    <img
+                      src={selectedOrder.payment_receipt}
+                      alt="Payment Receipt"
+                      className="w-full rounded-xl border object-contain max-h-80"
+                    />
+                  ) : <p className="text-sm text-gray-400">No receipt uploaded</p>}
                 </div>
 
                 <div>

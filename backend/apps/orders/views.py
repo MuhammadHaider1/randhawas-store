@@ -14,6 +14,7 @@ class OrderCreateView(generics.CreateAPIView):
 
     def perform_create(self, serializer):
         user = self.request.user if self.request.user.is_authenticated else None
+        payment_receipt = self.request.FILES.get('payment_receipt')
 
         if not user:
             email = serializer.validated_data.get('customer_email', '')
@@ -32,7 +33,7 @@ class OrderCreateView(generics.CreateAPIView):
                         first_name=name, phone=phone,
                     )
 
-        order = serializer.save(user=user)
+        order = serializer.save(user=user, payment_receipt=payment_receipt)
 
         import threading
         request = self.request
@@ -56,6 +57,9 @@ class OrderCreateView(generics.CreateAPIView):
         payment_info = ''
         if order.payment_method != 'cod':
             payment_info = f'\nPayment: {order.get_payment_method_display()}\nAdvance Amount: PKR {order.advance_amount}'
+            if order.payment_receipt:
+                receipt_url = request.build_absolute_uri(order.payment_receipt.url)
+                payment_info += f'\nReceipt: {receipt_url}'
 
         admin_msg = (
             f'🛒 NEW ORDER #{order.order_id}\n'
@@ -93,7 +97,7 @@ class OrderCreateView(generics.CreateAPIView):
                 f'Total: PKR {order.total}\n'
                 f'Payment: {order.get_payment_method_display()}\n'
                 f'\nPlease send 50% advance payment (PKR {order.advance_amount}) '
-                f'to the account shown on our website.\n'
+                f'to the account shown on our website and upload the receipt.\n'
                 f'Remaining PKR {order.advance_amount} will be collected on delivery.\n\n'
                 f'We will verify your payment within 24 hours.\n\n'
                 f"HR,S HUB"

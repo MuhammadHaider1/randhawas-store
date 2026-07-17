@@ -6,8 +6,8 @@ import toast from 'react-hot-toast'
 import api from '../utils/api'
 
 const paymentMethods = [
-  { value: 'advance_easypaisa', label: '50% Advance via EasyPaisa/JazzCash', desc: 'Send 50% advance payment' },
-  { value: 'advance_bank', label: '50% Advance via Bank Transfer', desc: 'Bank transfer' },
+  { value: 'advance_easypaisa', label: '50% Advance via EasyPaisa/JazzCash', desc: 'Send 50% payment & upload receipt' },
+  { value: 'advance_bank', label: '50% Advance via Bank Transfer', desc: 'Bank transfer & upload receipt' },
 ]
 
 export default function Checkout() {
@@ -16,6 +16,8 @@ export default function Checkout() {
   const formRef = useRef(null)
   const [loading, setLoading] = useState(false)
   const [paymentMethod, setPaymentMethod] = useState('advance_easypaisa')
+  const [receiptFile, setReceiptFile] = useState(null)
+  const [receiptPreview, setReceiptPreview] = useState(null)
   const [accounts, setAccounts] = useState(null)
   const [form, setForm] = useState({
     customer_name: '', customer_email: '', customer_phone: '',
@@ -36,12 +38,23 @@ export default function Checkout() {
 
   const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value })
 
+  const handleReceipt = (e) => {
+    const file = e.target.files[0]
+    if (file) {
+      setReceiptFile(file)
+      setReceiptPreview(URL.createObjectURL(file))
+    }
+  }
+
   const handleSubmit = async (e) => {
     e.preventDefault()
     if (!form.customer_name || !form.customer_phone || !form.shipping_address) {
       return toast.error('Please fill in all required fields')
     }
     if (items.length === 0) return toast.error('Your cart is empty')
+    if (!receiptFile) {
+      return toast.error('Please upload payment receipt')
+    }
     setLoading(true)
     try {
       const fd = new FormData()
@@ -51,6 +64,7 @@ export default function Checkout() {
       fd.append('total', orderTotal)
       fd.append('payment_method', paymentMethod)
       fd.append('advance_amount', advanceAmount)
+      if (receiptFile) fd.append('payment_receipt', receiptFile)
       items.forEach((item, idx) => {
         if (item.product) fd.append(`items[${idx}]product`, item.product)
         fd.append(`items[${idx}]product_name`, item.name)
@@ -82,7 +96,7 @@ export default function Checkout() {
       <h1 className="font-serif text-3xl font-semibold mb-8">Checkout</h1>
       <div className="grid lg:grid-cols-5 gap-8">
         <motion.form ref={formRef} initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }}
-          onSubmit={handleSubmit} className="lg:col-span-3 space-y-6">
+          onSubmit={handleSubmit} className="lg:col-span-3 space-y-6" encType="multipart/form-data">
 
           <div className="bg-white rounded-xl p-6 border space-y-4">
             <h2 className="font-medium text-lg">Contact Information</h2>
@@ -162,6 +176,17 @@ export default function Checkout() {
                   <div className="mt-3 bg-red-50 border border-red-200 rounded-lg p-3">
                     <p className="text-xs text-red-700 font-medium">⚠ Note: Server payment verification may be delayed. In case of delay, please use Bank Transfer or contact us on WhatsApp. Your order will only ship after payment is confirmed.</p>
                   </div>
+
+                  <div className="mt-3">
+                    <label className="text-sm font-medium">Upload Payment Receipt/Screenshot *</label>
+                    <input type="file" accept="image/*" onChange={handleReceipt}
+                      className="w-full mt-1 text-sm file:mr-3 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-medium file:bg-primary-50 file:text-primary-700 hover:file:bg-primary-100" />
+                    {receiptPreview && (
+                      <div className="mt-2 relative inline-block">
+                        <img src={receiptPreview} alt="Receipt" className="h-24 rounded-lg border object-cover" />
+                      </div>
+                    )}
+                  </div>
                 </motion.div>
               )}
             </AnimatePresence>
@@ -208,7 +233,7 @@ export default function Checkout() {
               <div className="flex justify-between text-lg font-semibold"><span>Total</span><span>PKR {orderTotal.toFixed(2)}</span></div>
             </div>
             <p className="text-xs text-gray-400 text-center pt-2">
-              Send PKR {advanceAmount} (50%) advance. Remaining PKR {remainingAmount} on delivery.
+              Send PKR {advanceAmount} (50%) advance & upload receipt. Remaining PKR {remainingAmount} on delivery.
             </p>
           </div>
         </motion.div>

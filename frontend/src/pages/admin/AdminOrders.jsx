@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { HiX, HiCheck, HiTruck, HiEye, HiCash, HiBadgeCheck } from 'react-icons/hi'
+import { HiX, HiCheck, HiTruck, HiEye, HiPhotograph, HiCash, HiBadgeCheck } from 'react-icons/hi'
 import api from '../../utils/api'
 
 const statusColors = {
@@ -187,6 +187,17 @@ export default function AdminOrders() {
                         'bg-gray-100 text-gray-600'
                       }`}>{selected.payment_status}</span>
                     </div>
+                    {selected.payment_receipt && (
+                      <div>
+                        <p className="text-xs font-medium text-amber-700 mb-1 flex items-center gap-1">
+                          <HiPhotograph size={14} /> Payment Receipt
+                        </p>
+                        <a href={selected.payment_receipt} target="_blank" rel="noopener noreferrer">
+                          <img src={selected.payment_receipt} alt="Payment Receipt"
+                            className="max-h-40 rounded-lg border border-amber-300 cursor-pointer hover:opacity-90 transition-opacity" />
+                        </a>
+                      </div>
+                    )}
                   </div>
                 )}
 
