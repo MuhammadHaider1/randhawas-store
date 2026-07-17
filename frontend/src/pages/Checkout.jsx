@@ -29,9 +29,10 @@ export default function Checkout() {
     api.get('/orders/payment-accounts/').then(({ data }) => setAccounts(data)).catch(() => {})
   }, [items, navigate])
 
+  const SHIPPING_FEE = 300
   const subtotal = items.reduce((s, i) => s + i.price * i.quantity, 0)
   const productDiscount = subtotal - total
-  const orderTotal = total
+  const orderTotal = total + SHIPPING_FEE
   const totalDiscount = productDiscount
   const advanceAmount = (orderTotal * 0.5).toFixed(2)
   const remainingAmount = (orderTotal * 0.5).toFixed(2)
@@ -226,7 +227,7 @@ export default function Checkout() {
               {productDiscount > 0 && (
                 <div className="flex justify-between text-red-500"><span>Discount</span><span>-PKR {productDiscount.toFixed(2)}</span></div>
               )}
-              <div className="flex justify-between"><span className="text-gray-500">Shipping</span><span className="text-emerald-600 font-medium">Free</span></div>
+              <div className="flex justify-between"><span className="text-gray-500">Shipping</span><span className="text-gray-500">PKR 300</span></div>
               <div className="flex justify-between text-amber-700"><span>Advance (50%)</span><span className="font-semibold">PKR {advanceAmount}</span></div>
               <div className="flex justify-between text-gray-500"><span>Remaining on Delivery</span><span>PKR {remainingAmount}</span></div>
               <hr />

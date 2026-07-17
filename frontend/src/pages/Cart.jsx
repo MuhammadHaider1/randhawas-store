@@ -54,9 +54,9 @@ export default function Cart() {
           <h3 className="font-medium text-lg mb-4">Order Summary</h3>
           <div className="space-y-3 text-sm">
             <div className="flex justify-between"><span className="text-gray-500">Subtotal ({itemCount} items)</span><span className="font-medium">PKR {total.toFixed(2)}</span></div>
-            <div className="flex justify-between"><span className="text-gray-500">Shipping</span><span className="text-gray-500">Free</span></div>
+            <div className="flex justify-between"><span className="text-gray-500">Shipping</span><span className="text-gray-500">PKR 300</span></div>
             <hr />
-            <div className="flex justify-between text-lg font-semibold"><span>Total</span><span>PKR {total.toFixed(2)}</span></div>
+            <div className="flex justify-between text-lg font-semibold"><span>Total</span><span>PKR {(total + 300).toFixed(2)}</span></div>
           </div>
           <Link to="/checkout" className="btn-primary w-full text-center mt-6 block">Proceed to Checkout</Link>
           <Link to="/shop" className="block text-center text-sm text-gray-500 hover:text-luxury-charcoal mt-3">Continue Shopping</Link>

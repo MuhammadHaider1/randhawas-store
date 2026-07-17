@@ -25,7 +25,7 @@ export default function Home() {
     <div>
       <Helmet>
         <title>HR,S HUB – Premium Women's Fashion</title>
-        <meta name="description" content="Shop premium women's fashion in Pakistan – heels, handbags, suits, jewelry, makeup & more. Free shipping on orders over PKR 5,000." />
+        <meta name="description" content="Shop premium women's fashion in Pakistan – heels, handbags, suits, jewelry, makeup & more. Flat PKR 300 shipping nationwide." />
         <meta property="og:title" content="HR,S HUB – Women's Fashion" />
         <meta property="og:description" content="Premium women's fashion: heels, handbags, suits, jewelry & makeup. Shop now." />
       </Helmet>
