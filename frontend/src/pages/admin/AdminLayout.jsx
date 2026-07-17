@@ -49,7 +49,7 @@ export default function AdminLayout() {
         <div className="flex flex-col h-full">
           <div className="p-6 border-b flex items-center justify-between">
             <div>
-              <h1 className="font-serif text-xl font-bold text-luxury-charcoal">Randahaws</h1>
+              <h1 className="font-serif text-xl font-bold text-luxury-charcoal">HR,S HUB</h1>
               <p className="text-xs text-gray-500 mt-0.5">Admin Panel</p>
             </div>
             <button className="lg:hidden p-1" onClick={() => setSidebarOpen(false)}>
@@ -103,7 +103,7 @@ export default function AdminLayout() {
             <button onClick={() => setSidebarOpen(true)} className="p-2 -ml-2 rounded-lg hover:bg-gray-100">
               <HiMenu size={22} />
             </button>
-            <h1 className="font-serif font-bold text-luxury-charcoal">Randahaws Admin</h1>
+            <h1 className="font-serif font-bold text-luxury-charcoal">HR,S HUB Admin</h1>
             <div className="w-10" />
           </div>
         </header>

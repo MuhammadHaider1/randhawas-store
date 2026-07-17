@@ -36,7 +36,7 @@ export default function Footer() {
       </div>
       <div className="border-t border-gray-700 py-6">
         <div className="max-w-7xl mx-auto px-4 flex flex-col md:flex-row items-center justify-between gap-4 text-sm text-gray-500">
-          <p>&copy; {new Date().getFullYear()} Randahaws. All rights reserved.</p>
+          <p>&copy; {new Date().getFullYear()} HR,S HUB. All rights reserved.</p>
           <p className="flex items-center gap-1">Made with <HiHeart className="text-primary-500" /> for fashion lovers</p>
         </div>
       </div>

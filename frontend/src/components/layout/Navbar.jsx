@@ -49,7 +49,7 @@ export default function Navbar({ onCartOpen }) {
           </button>
 
           <Link to="/" className="font-serif text-xl md:text-2xl font-bold tracking-wide text-luxury-charcoal dark:text-white">
-            <span className="text-primary-600">Randa</span>haws
+            HR,S HUB
           </Link>
 
           <div className="hidden md:flex items-center gap-6">

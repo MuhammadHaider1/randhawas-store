@@ -86,7 +86,7 @@ export default function ProductDetail() {
   return (
     <>
       <Helmet>
-        <title>{product.meta_title || `${product.name} – Randahaws`}</title>
+        <title>{product.meta_title || `${product.name} – HR,S HUB`}</title>
         <meta name="description" content={product.meta_description || product.short_description} />
       </Helmet>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 pt-24">

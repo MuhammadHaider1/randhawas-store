@@ -45,7 +45,7 @@ export default function Profile() {
 
   return (
     <>
-      <Helmet><title>My Profile – Randahaws</title></Helmet>
+      <Helmet><title>My Profile – HR,S HUB</title></Helmet>
       <div className="max-w-2xl mx-auto px-4 py-8 pt-24">
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
           <h1 className="font-serif text-3xl font-semibold mb-8">My Profile</h1>

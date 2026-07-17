@@ -159,7 +159,7 @@ EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD', default='')
 DEFAULT_FROM_EMAIL = config('DEFAULT_FROM_EMAIL', default='noreply@randahaws.com')
 
 ADMIN_EMAIL = config('ADMIN_EMAIL', default='admin@randahaws.com')
-SITE_NAME = 'Randahaws — Women\'s Fashion'
+SITE_NAME = "HR,S HUB — Women's Fashion"
 SITE_URL = config('SITE_URL', default='http://localhost:5173')
 
 PAYMENT_ACCOUNTS = {

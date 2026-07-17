@@ -14,7 +14,7 @@ const fadeUp = {
 
 const testimonials = [
   { name: 'Sarah M.', text: 'Absolutely stunning collection! The quality is unmatched and everything fits like a dream.', rating: 5 },
-  { name: 'Jessica K.', text: 'I receive compliments every time I wear Randahaws. Truly premium pieces.', rating: 5 },
+  { name: 'Jessica K.', text: 'I receive compliments every time I wear HR,S HUB. Truly premium pieces.', rating: 5 },
   { name: 'Amanda L.', text: 'The most beautiful women\'s fashion I have ever owned. Worth every penny!', rating: 5 },
 ]
 
@@ -24,9 +24,9 @@ export default function Home() {
   return (
     <div>
       <Helmet>
-        <title>Randahaws Store – Premium Women's Fashion</title>
+        <title>HR,S HUB – Premium Women's Fashion</title>
         <meta name="description" content="Shop premium women's fashion in Pakistan – heels, handbags, suits, jewelry, makeup & more. Free shipping on orders over PKR 5,000." />
-        <meta property="og:title" content="Randahaws Store – Women's Fashion" />
+        <meta property="og:title" content="HR,S HUB – Women's Fashion" />
         <meta property="og:description" content="Premium women's fashion: heels, handbags, suits, jewelry & makeup. Shop now." />
       </Helmet>
       <section className="relative min-h-screen flex items-center bg-gradient-to-br from-luxury-cream via-white to-primary-50 overflow-hidden">
