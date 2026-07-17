@@ -5,6 +5,7 @@ import { motion } from 'framer-motion'
 import { HiCheck, HiArrowRight, HiInformationCircle } from 'react-icons/hi'
 import { clearCart } from '../store/cartSlice'
 import api from '../utils/api'
+import { trackPurchase } from '../utils/tiktok'
 
 export default function OrderSuccess() {
   const { orderId } = useParams()
@@ -15,7 +16,10 @@ export default function OrderSuccess() {
   useEffect(() => {
     dispatch(clearCart())
     if (orderId) {
-      api.get(`/orders/track/${orderId}/`).then(({ data }) => setOrder(data)).catch(() => {})
+      api.get(`/orders/track/${orderId}/`).then(({ data }) => {
+        setOrder(data)
+        trackPurchase(data)
+      }).catch(() => {})
       api.get('/orders/payment-accounts/').then(({ data }) => setAccounts(data)).catch(() => {})
     }
   }, [dispatch, orderId])

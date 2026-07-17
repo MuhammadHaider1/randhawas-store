@@ -160,6 +160,10 @@ DEFAULT_FROM_EMAIL = config('DEFAULT_FROM_EMAIL', default='noreply@randahaws.com
 
 ADMIN_EMAIL = config('ADMIN_EMAIL', default='admin@randahaws.com')
 SITE_NAME = "HR,S HUB — Women's Fashion"
+
+TIKTOK_PIXEL_CODE = config('TIKTOK_PIXEL_CODE', default='D9D78N3C77U7PB56UFN0')
+TIKTOK_ACCESS_TOKEN = config('TIKTOK_ACCESS_TOKEN', default='')
+TIKTOK_TEST_EVENT_CODE = config('TIKTOK_TEST_EVENT_CODE', default='TEST11042')
 SITE_URL = config('SITE_URL', default='http://localhost:5173')
 
 PAYMENT_ACCOUNTS = {

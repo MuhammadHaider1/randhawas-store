@@ -8,6 +8,7 @@ import { Helmet } from 'react-helmet-async'
 import { fetchProduct, clearCurrent } from '../store/productSlice'
 import { addToCart } from '../store/cartSlice'
 import api from '../utils/api'
+import { trackViewContent, trackAddToCart } from '../utils/tiktok'
 
 export default function ProductDetail() {
   const { slug } = useParams()
@@ -28,6 +29,7 @@ export default function ProductDetail() {
 
   useEffect(() => { dispatch(fetchProduct(slug)); return () => dispatch(clearCurrent()) }, [dispatch, slug])
   useEffect(() => { setSelectedSize(''); setSelectedColor(''); setQuantity(1); setActiveImage(0) }, [product])
+  useEffect(() => { if (product) trackViewContent(product) }, [product])
 
   if (loading || !product) return (
     <div className="max-w-7xl mx-auto px-4 py-8 pt-24">
@@ -48,6 +50,7 @@ export default function ProductDetail() {
   const handleAdd = () => {
     if (sizes?.length && !selectedSize) { toast.error('Please select a size'); return }
     dispatch(addToCart({ product, size: selectedSize, color: selectedColor, quantity }))
+    trackAddToCart({ id: product.id, name: product.name, price: finalPrice, quantity })
     toast.success('Added to cart!')
   }
 

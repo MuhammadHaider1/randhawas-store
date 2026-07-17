@@ -124,3 +124,18 @@ class PaymentAccountsView(views.APIView):
 
     def get(self, request):
         return Response(settings.PAYMENT_ACCOUNTS)
+
+
+class TikTokEventView(views.APIView):
+    permission_classes = [permissions.AllowAny]
+
+    def post(self, request):
+        from .tiktok import send_tiktok_event
+
+        event_name = request.data.get('event', 'ViewContent')
+        payload = request.data.get('payload', {})
+        result = send_tiktok_event(event_name, payload, request)
+
+        if result and result.get('code') == 0:
+            return Response({'status': 'ok', 'result': result}, status=200)
+        return Response({'status': 'error', 'result': result}, status=200)
